@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[My Octopress Blog]]></title>
-  <link href="http://zzamboni.github.io/blog/atom.xml" rel="self"/>
-  <link href="http://zzamboni.github.io/blog/"/>
-  <updated>2013-04-25T00:28:40-05:00</updated>
-  <id>http://zzamboni.github.io/blog/</id>
+  <title><![CDATA[Blog]]></title>
+  <link href="http://zzamboni.org/blog.cf-learn.info/atom.xml" rel="self"/>
+  <link href="http://zzamboni.org/blog.cf-learn.info/"/>
+  <updated>2013-04-25T00:36:04-05:00</updated>
+  <id>http://zzamboni.org/blog.cf-learn.info/</id>
   <author>
-    <name><![CDATA[Your Name]]></name>
+    <name><![CDATA[Diego Zamboni]]></name>
     
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>

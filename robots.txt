@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: 
 
-Sitemap: http://zzamboni.github.io/blog/sitemap.xml 
+Sitemap: http://zzamboni.org/blog.cf-learn.info/sitemap.xml 
