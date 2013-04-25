@@ -1,0 +1,330 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>CFEngine tip #002: How to pass arguments to bundles using arrays - Blog</title>
+  <meta name="author" content="Diego Zamboni">
+
+  
+  <meta name="description" content="(This tip is based on a section from Chapter 5 of Learning CFEngine 3.) Many system configuration tasks require groups of name-value pairs as &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://zzamboni.org/blog.cf-learn.info/cfengine-tip-002-how-to-pass-arguments-to-bun">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Blog</a></h1>
+  
+    <h2>News about "Learning CFEngine 3"</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:zzamboni.org/blog.cf-learn.info" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">CFEngine Tip #002: How to Pass Arguments to Bundles Using Arrays</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-07T10:00:00-05:00" pubdate data-updated="true">May 7<span>th</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><p>(This tip is based on a section from Chapter 5 of Learning CFEngine 3.)</p>
+
+<p>Many system configuration tasks require groups of name-value pairs as arguments. For example:</p>
+
+<ul>
+<li>Editing configuration files in which parameters and their values need to be stored (ssh configuration files, Windows-style INI files, etc.)</li>
+<li>Setting user parameters. In this case, sets of name-value pairs (home directory, full name, shell, etc.) are associated with a single user, identified by name.</li>
+</ul>
+<p>Having sets of related values in a single array has a number of advantages, since they can be manipulated by a single set of promises just by varying the indices used to access them. To make use of this array, you have to pass it as an argument to a bundle. One of the most useful functions in this technique is <a href="http://cf-learn.info/ref/getindices">getindices()</a>, which returns a list containing the indices of the given array, and can be used to produce an enumeration of the elements over which to iterate. The complementary function to get just the values is <a href="http://cf-learn.info/ref/getvalues">getvalues()</a>. For example, consider <a href="http://cf-learn.info/code/ch04/configfiles2.cf.html">this bundle</a>:</p>
+
+<p><div><script src='https://gist.github.com/2605453.js?file=arguments1.cf'></script>
+<noscript><pre><code>bundle agent configfiles
+{
+  vars:  
+      # SSHD configuration to set
+      &quot;sshd[Protocol]&quot;                                string =&gt; &quot;2&quot;;
+      &quot;sshd[X11Forwarding]&quot;                           string =&gt; &quot;yes&quot;;
+      &quot;sshd[UseDNS]&quot;                                  string =&gt; &quot;no&quot;;
+
+  methods:
+      &quot;sshd&quot;    usebundle =&gt; edit_sshd(&quot;configfiles.sshd&quot;);
+}
+
+bundle agent edit_sshd
+{
+  files:
+      &quot;/etc/sshd/sshd_config&quot;
+        handle =&gt; &quot;edit_sshd&quot;,
+        comment =&gt; &quot;Set desired sshd_config parameters&quot;,
+        edit_line =&gt; set_config_values(&quot;configfiles.sshd&quot;),
+        classes =&gt; if_repaired(&quot;restart_sshd&quot;);
+}
+</code></pre></noscript></div>
+</p>
+
+<p>To pass arrays as arguments we must pass a string with the name of the array, and then dereference it inside the function. The argument we are passing to set_config_values() is “configfiles.sshd”, which refers to the sshd array defined in the configfiles() bundle.  The dereferencing happens in the <a href="https://github.com/cfengine/copbl/blob/master/cfengine_stdlib.cf#L278">set_config_values() bundle</a>:</p>
+
+<p><div><script src='https://gist.github.com/2605453.js?file=set_config_values.cf'></script>
+<noscript><pre><code>bundle edit_line set_config_values(v)
+{
+  vars:
+      &quot;index&quot; slist =&gt; getindices(&quot;$(v)&quot;);
+      &quot;cindex[$(index)]&quot; string =&gt; canonify(&quot;$(index)&quot;);
+
+  replace_patterns:
+      # If the line is there, maybe commented out, uncomment and replace with
+      # the correct value
+      &quot;^\s*($(index)\s+(?!$($(v)[$(index)])).*|# ?$(index)\s+.*)$&quot;
+        replace_with =&gt; value(&quot;$(index) $($(v)[$(index)])&quot;),
+        classes =&gt; always(&quot;replace_attempted_$(cindex[$(index)])&quot;);
+
+  insert_lines:
+      &quot;$(index) $($(v)[$(index)])&quot;
+        ifvarclass =&gt; &quot;replace_attempted_$(cindex[$(index)])&quot;;
+}
+</code></pre></noscript></div>
+</p>
+
+<p>This bundle receives the name of the array as the “v” parameter, so we dereference the array and its values by using <code>$(v)</code> wherever we would normally use the array name. For example, to loop over the array elements using the indices stored in the <code>$(index)</code> list, we use <code>$($(v)[$(index)])</code> instead of <code>$(configfiles.sshd[$(index)])</code>.</p>
+
+<p>To group name/value sets into named groups, we can use two-dimensional arrays, as in <a href="http://cf-learn.info/code/ch04/users_use.cf.html">this example</a>:</p>
+
+<p><div><script src='https://gist.github.com/2605453.js?file=users_use.cf'></script>
+<noscript><pre><code>bundle agent manage_users
+{
+  vars:
+      # Users to create
+      &quot;users[root][fullname]&quot;  string =&gt; &quot;System administrator&quot;;
+      &quot;users[root][uid]&quot;       string =&gt; &quot;0&quot;;
+      &quot;users[root][gid]&quot;       string =&gt; &quot;0&quot;;
+      &quot;users[root][home]&quot;      string =&gt; &quot;/root&quot;;
+      &quot;users[root][shell]&quot;     string =&gt; &quot;/bin/bash&quot;;
+      &quot;users[root][flags]&quot;     string =&gt; &quot;-o -m&quot;;
+      &quot;users[root][password]&quot;  string =&gt; &quot;FkDMzhB1WnOp2&quot;;
+
+      &quot;users[zamboni][fullname]&quot;  string =&gt; &quot;Diego Zamboni&quot;;
+      &quot;users[zamboni][uid]&quot;       string =&gt; &quot;501&quot;;
+      &quot;users[zamboni][gid]&quot;       string =&gt; &quot;users&quot;;
+      &quot;users[zamboni][home]&quot;      string =&gt; &quot;/home/zamboni&quot;;
+      &quot;users[zamboni][shell]&quot;     string =&gt; &quot;/bin/bash&quot;;
+      &quot;users[zamboni][flags]&quot;     string =&gt; &quot;-m&quot;;
+      &quot;users[zamboni][password]&quot;  string =&gt; &quot;dk52ia209rfuh&quot;;
+
+  methods:
+      &quot;users&quot;   usebundle =&gt; create_users(&quot;manage_users.users&quot;);
+}
+</code></pre></noscript></div>
+</p>
+
+<p>In this case the dereferencing can get a little more complicated. For example, let us look at some of the code inside the <a href="http://cf-learn.info/code/ch04/sys_create_users.cf.html">create_users() bundle</a>:</p>
+
+<p><div><script src='https://gist.github.com/2605453.js?file=sys_create_users.cf'></script>
+<noscript><pre><code>bundle agent create_users(info)
+{
+  vars:
+      &quot;user&quot;        slist =&gt; getindices(&quot;$(info)&quot;);
+
+  classes:
+      &quot;add_$(user)&quot; not =&gt; userexists(&quot;$(user)&quot;);
+
+  commands:
+    linux::
+      &quot;/usr/sbin/useradd $($(info)[$(user)][flags]) -u $($(info)[$(user)][uid]) 
+       -g $($(info)[$(user)][gid]) -d $($(info)[$(user)][home]) 
+       -s $($(info)[$(user)][shell]) -c '$($(info)[$(user)][fullname])' $(user)&quot;
+        ifvarclass =&gt; &quot;add_$(user)&quot;;
+...</code></pre></noscript></div>
+</p>
+
+<p>This bundle is being called from the methods: section of the <code>manage_users()</code> bundle, with the string <code>"manage_users.users"</code> as the value of <code>$(info)</code>. We use getindices() directly on this value to get a list of the first-level indices of the array (the user names), which we store in <code>@(user)</code>. Then we use implicit looping over <code>@(user)</code> to cycle through all those values, and we use the following construction to access individual elements of each user’s data: <code>$($(info)[$(user)][field])</code>. This expands to <code>$(manage_users.users[$(user)][field])</code>, on which implicit looping is applied through the <code>$(user)</code> variable. Remember that parenthesis (or curly braces, they mean the same) are required around the whole expression, so that CFEngine recognizes it properly as a variable reference.</p>
+
+<p>While the syntax looks complicated, this data structure allows great flexibility in passing around and using data structures to be used in configuration operations.</p>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Diego Zamboni</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-05-07T10:00:00-05:00" pubdate data-updated="true">May 7<span>th</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/categories/arrays/'>arrays</a>, <a class='category' href='/categories/cfengine/'>cfengine</a>, <a class='category' href='/categories/cfengine-tip/'>cfengine_tip</a>, <a class='category' href='/categories/tips/'>tips</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://zzamboni.org/blog.cf-learn.info/cfengine-tip-002-how-to-pass-arguments-to-bun" data-via="" data-counturl="http://zzamboni.org/blog.cf-learn.info/cfengine-tip-002-how-to-pass-arguments-to-bun" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/get-a-free-copy-of-learning-cfengine-3-in-exc" title="Previous Post: Get a free copy of "Learning CFEngine 3" in exchange for a review">&laquo; Get a free copy of "Learning CFEngine 3" in exchange for a review</a>
+      
+      
+        <a class="basic-alignment right" href="/cfengine-tip-003-the-distinction-between-bodi" title="Next Post: CFEngine tip #003: The distinction between bodies and bundles">CFEngine tip #003: The distinction between bodies and bundles &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/learning-cfengine-3-at-lisa12">"Learning CFEngine 3" at LISA'12</a>
+      </li>
+    
+      <li class="post">
+        <a href="/second-release-of-learning-cfengine-3">Second release of "Learning CFEngine 3"</a>
+      </li>
+    
+      <li class="post">
+        <a href="/cfengine-tip-004-how-to-bootstrap-a-cfengine">CFEngine tip #004: How to bootstrap a CFEngine client</a>
+      </li>
+    
+      <li class="post">
+        <a href="/cfengine-tip-003-the-distinction-between-bodi">CFEngine tip #003: The distinction between bodies and bundles</a>
+      </li>
+    
+      <li class="post">
+        <a href="/cfengine-tip-002-how-to-pass-arguments-to-bun">CFEngine tip #002: How to pass arguments to bundles using arrays</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Diego Zamboni -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

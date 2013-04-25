@@ -1,0 +1,272 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>CFEngine tip #001: Modularize complex policies using methods: calls - Blog</title>
+  <meta name="author" content="Diego Zamboni">
+
+  
+  <meta name="description" content="Welcome to the new &#8220;CFEngine tip&#8221; series. In this series of posts I will explore different tips, tricks and techniques for making better &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://zzamboni.org/blog.cf-learn.info/cfengine-tip-001-modularize-complex-policies">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Blog</a></h1>
+  
+    <h2>News about "Learning CFEngine 3"</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:zzamboni.org/blog.cf-learn.info" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">CFEngine Tip #001: Modularize Complex Policies Using Methods: Calls</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-23T09:44:00-05:00" pubdate data-updated="true">Apr 23<span>rd</span>, 2012</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div>Welcome to the new &#8220;CFEngine tip&#8221; series. In this series of posts I will explore different tips, tricks and techniques for making better use of CFEngine. For now I will post weekly, but the frequency may change as time goes by. If you have any suggestions for topics that I should cover in this series, please <a href="http://cf-learn.info/contact.html">let me know</a>!</div>
+<p></p>
+<div>For our first installment, we will talk about methods: promises, and how they can be used to make policies both clearer and more extensible.</div>
+<div>
+<hr>
+</div>
+<p>As your CFEngine policies grow in complexity, they become harder to read if all your promises are in a single bundle, or if you split them among bundles, to have all those bundles listed in the <a href="http://cf-learn.info/ref/bundlesequence">bundlesequence</a> declaration.</p>
+<div>Enter the <a href="http://cf-learn.info/ref/methods">methods:</a> promise type. Promises of this type allow you to call other bundles in sequence, passing arbitrary parameters. For example, consider the following example (from <a href="http://cf-learn.info/code/ch05/configfiles5.cf.html">Chapter 5</a> of &#8220;Learning CFEngine 3&#8221;):</div>
+<p><div><script src='https://gist.github.com/2471468.js?file=methods_ex1.cf'></script>
+<noscript><pre><code>bundle agent configfiles
+{
+  vars:  
+      # Files to edit
+      &quot;files[sysctlconf]&quot; string =&gt; &quot;/etc/sysctl.conf&quot;;
+      &quot;files[sshdconfig]&quot; string =&gt; &quot;/etc/ssh/sshd_config&quot;;
+      &quot;files[inittab]&quot;    string =&gt; &quot;/etc/inittab&quot;;
+      # ...
+
+  methods:
+      # Pass the name of the array, not the array itself.
+      &quot;backup&quot;  usebundle =&gt; backup_files(&quot;configfiles.files&quot;);
+      &quot;sysctl&quot;  usebundle =&gt; edit_sysctl;
+      &quot;sshd&quot;    usebundle =&gt; edit_sshd;
+      &quot;inittab&quot; usebundle =&gt; edit_inittab;
+      &quot;users&quot;   usebundle =&gt; manage_users(&quot;configfiles.users&quot;);
+}
+</code></pre></noscript></div>
+</p>
+<div>The methods: section makes it very easy to see the sequence of actions that will take place: backup some files, configure sysctl, sshd, inittab and users in sequence. This helps both in clarity and in code reusability: each bundle can perform logically different functionality, and they could potentially be reused in different settings and with different parameters. The promiser string in a methods: promise is an arbitrary string. The CFEngine documentation uses &#8220;any&#8221;, but you can also use it, as in this example, to indicate the purpose of the promise.</div>
+<p></p>
+<div>Furthermore, you can use CFEngine&#8217;s <a href="https://cfengine.com/manuals/cf3-reference#Loops-and-lists-in-CFEngine-3">implicit looping</a> to create generic promises that will call as many other bundles as necessary. Consider this <a href="http://cf-learn.info/code/ch05/configfiles7.cf.html">revised code</a>:</div>
+<p><div><script src='https://gist.github.com/2471468.js?file=methods_ex2.cf'></script>
+<noscript><pre><code>bundle agent configfiles
+{
+  vars:  
+      # Files to edit
+      &quot;files[sysctl]&quot;     string =&gt; &quot;/etc/sysctl.conf&quot;;
+      &quot;files[sshd]&quot;       string =&gt; &quot;/etc/ssh/sshd_config&quot;;
+      &quot;files[inittab]&quot;    string =&gt; &quot;/etc/inittab&quot;;
+      # ...
+
+      &quot;file_id&quot; slist =&gt; getindices(&quot;files&quot;);
+      &quot;bundle_names&quot; slist =&gt; maplist(&quot;edit_$(this)&quot;, &quot;file_id&quot;);
+
+  methods:
+      &quot;backup&quot;  usebundle =&gt; backup_files(&quot;configfiles.files&quot;);
+      &quot;$(bundle_names)&quot;  usebundle =&gt; $(bundle_names)(&quot;configfiles.files&quot;);
+      &quot;users&quot;   usebundle =&gt; manage_users(&quot;configfiles.users&quot;);
+}
+</code></pre></noscript></div>
+</p>
+<div>Now the list of bundles to call (edit_sysctl, edit_sshd and edit_inittab) is being built on the fly from the contents of the files array, and used through implicit looping to call the bundles in the methods: promises. Note how you can even pass arguments to these calls. This makes it very easy to extend the functionality by simply adding new elements to the files array (and of course, defining the appropriate edit_* bundle).</div>
+<p></p>
+<div>Until next time!</div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Diego Zamboni</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2012-04-23T09:44:00-05:00" pubdate data-updated="true">Apr 23<span>rd</span>, 2012</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/categories/cfengine/'>cfengine</a>, <a class='category' href='/categories/cfengine-tip/'>cfengine_tip</a>, <a class='category' href='/categories/methods/'>methods</a>, <a class='category' href='/categories/tips/'>tips</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://zzamboni.org/blog.cf-learn.info/cfengine-tip-001-modularize-complex-policies" data-via="" data-counturl="http://zzamboni.org/blog.cf-learn.info/cfengine-tip-001-modularize-complex-policies" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/new-reviews-page" title="Previous Post: New "reviews" page">&laquo; New "reviews" page</a>
+      
+      
+        <a class="basic-alignment right" href="/a-full-shelf" title="Next Post: A full shelf">A full shelf &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/learning-cfengine-3-at-lisa12">"Learning CFEngine 3" at LISA'12</a>
+      </li>
+    
+      <li class="post">
+        <a href="/second-release-of-learning-cfengine-3">Second release of "Learning CFEngine 3"</a>
+      </li>
+    
+      <li class="post">
+        <a href="/cfengine-tip-004-how-to-bootstrap-a-cfengine">CFEngine tip #004: How to bootstrap a CFEngine client</a>
+      </li>
+    
+      <li class="post">
+        <a href="/cfengine-tip-003-the-distinction-between-bodi">CFEngine tip #003: The distinction between bodies and bundles</a>
+      </li>
+    
+      <li class="post">
+        <a href="/cfengine-tip-002-how-to-pass-arguments-to-bun">CFEngine tip #002: How to pass arguments to bundles using arrays</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Diego Zamboni -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

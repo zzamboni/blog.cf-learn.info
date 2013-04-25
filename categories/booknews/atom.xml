@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: booknews | Blog]]></title>
+  <link href="http://zzamboni.org/blog.cf-learn.info/categories/booknews/atom.xml" rel="self"/>
+  <link href="http://zzamboni.org/blog.cf-learn.info/"/>
+  <updated>2013-04-25T00:46:52-05:00</updated>
+  <id>http://zzamboni.org/blog.cf-learn.info/</id>
+  <author>
+    <name><![CDATA[Diego Zamboni]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Second release of "Learning CFEngine 3"]]></title>
+    <link href="http://zzamboni.org/blog.cf-learn.info/second-release-of-learning-cfengine-3"/>
+    <updated>2012-11-14T20:33:23-06:00</updated>
+    <id>http://zzamboni.org/blog.cf-learn.info/second-release-of-learning-cfengine-3</id>
+    <content type="html"><![CDATA[<p>I am happy to announce that as of today, the second release of "<a href="http://shop.oreilly.com/product/0636920022022.do">Learning CFEngine 3</a>" is available. If you have purchased the e-book version of the book you can get the new release from the "<a href="https://members.oreilly.com/account/emedia/index">Your Products</a>" page at <a href="http://oreilly.com">oreilly.com</a> (pro tip: set up Dropbox synchronization, and you will always have the latest version with you!). And if you haven't purchased it, now it's an excellent time to do it! You get all the fresh content, and all future releases for free.<p></p></p>
+
+<div>These are the main updates in this release:</div>
+
+
+<div>
+<ul>
+<li>The book has been updated to reflect changes introduced up to CFEngine 3.3.9 (the latest stable release as of this writing), including many features that were previously only available in CFEngine Enterprise, such as guest_environments promises, databases promises, and more.</li>
+<li>The installation instructions now reflect the availability of binary package repositories for many Linux distributions, as well as the “Free 25” Enterprise packages that allow you to try CFEngine Enterprise for free, for up to 25 machines.</li>
+<li>Vim fans rejoice! A new Appendix, contributed by Neil H. Watson, provides details on how to use Vim to edit CFEngine policy files.</li>
+<li>This release fixes all known errata, including many typos, omissions, and other numerous miscellaneous things.</li>
+</ul>
+<div>I hope you enjoy this update! And if you have any feedback, please feel free to contact me.</div>
+</div>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Get a free copy of "Learning CFEngine 3" in exchange for a review]]></title>
+    <link href="http://zzamboni.org/blog.cf-learn.info/get-a-free-copy-of-learning-cfengine-3-in-exc"/>
+    <updated>2012-05-04T18:28:57-05:00</updated>
+    <id>http://zzamboni.org/blog.cf-learn.info/get-a-free-copy-of-learning-cfengine-3-in-exc</id>
+    <content type="html"><![CDATA[<div>Are you a technical blogger? O'Reilly's "<a href="http://oreilly.com/bloggers/">Blogger Review Program</a>" allows bloggers to get free ebooks and videos, in exchange for writing reviews of them.</div>
+
+
+<p></p>
+
+
+<div>I'd love to see more reviews of "Learning CFEngine 3". If you have a technical blog, and would be interested in reviewing the book, I encourage you to visit <a href="http://oreilly.com/bloggers/">the program's website</a> to find out more.</div>
+
+
+<p></p>
+
+
+<div>Plus, I'm sure you will enjoy the book, and I would love to read your review!</div>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[Day Against DRM at O'Reilly: 50% discount on "Learning CFEngine 3" and all other ebooks]]></title>
+    <link href="http://zzamboni.org/blog.cf-learn.info/day-against-drm-at-oreilly-50-discount-on-lea"/>
+    <updated>2012-05-04T00:16:00-05:00</updated>
+    <id>http://zzamboni.org/blog.cf-learn.info/day-against-drm-at-oreilly-50-discount-on-lea</id>
+    <content type="html"><![CDATA[<p>Today, May 4th, 2012, O'Reilly Media is participating in support of the FSF's <a href="http://www.fsf.org/news/may-4-day-against-drm">Day Against DRM</a>. All O'Reilly ebooks and videos are DRM-free, and to celebrate this, you can get 50% off on any purchase by using the code DRMFREE.</p>
+
+
+<p></p>
+
+
+<div>I'm proud to participate. <em>Learning CFEngine 3</em> is also available as a DRM-free ebook, and you can use this code to get it at half price.</div>
+
+
+<p></p>
+
+
+<div>Here's the message from O'Reilly. Find out more at <a href="http://shop.oreilly.com/category/deals/day-against-drm.do">http://shop.oreilly.com/category/deals/day-against-drm.do</a>
+</div>
+
+
+<p></p>
+
+
+<div>
+<span style="color: #333333; font-family: Arial, Verdana, Geneva, Helvetica, sans-serif; font-size: 12px;"><span class="orm"> </span></span>
+<div class="module ml" style="">
+<div class="body no-border">
+<div style="background: #ffd021;">
+<h1 class="fwb" style=""><span style="font-size: x-large;"><strong><a href="http://shop.oreilly.com/category/deals/day-against-drm.do">In Celebration of *Day Against DRM*</a></strong></span></h1>
+<h2 class="fsxl fwb mb" style="">Save 50% on ALL Ebooks &amp; Videos <span class="fsl" style="font-size: 16px;">– Use Code: <span style="color: #cc0000;">DRMFREE</span></span>
+</h2>
+<div style="">
+<p class="mn fsl" style="">Having the ability to download files at your convenience, store them on all your devices, or share them with a friend or colleague as you would a print book, <span class="fwb" style="font-weight: bold;">is liberating, and is how it should be</span>. If you haven't tried a DRM-free ebook or video, we encourage you to do so now. And if you're already a fan, take advantage of our sale and add to your library. For one day only, you can save 50% on all <span class="fwb" style="font-weight: bold;">O'Reilly</span>, <span class="fwb" style="font-weight: bold;">No Starch</span>, and <span class="fwb" style="font-weight: bold;">Rocky Nook </span>ebooks and videos. <a href="http://www.fsf.org/news/may-4-day-against-drm" class="fc-dark" style="color: #222222; text-decoration: underline;">Learn more about Day Against DRM</a></p>
+<p class="fsm mb" style="">Ebooks from oreilly.com are <span class="fwb" style="font-weight: bold;">DRM-free</span>. You get <span class="fwb" style="font-weight: bold;">free lifetime access, multiple file formats, free updates.</span> <br><span class="fsm fwn" style="font-size: 12px; font-weight: normal;">Deal expires May 4, 2012 at 11:59pm PT and cannot be combined with other offers.</span></p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[The bird on the cover of "Learning CFEngine 3"]]></title>
+    <link href="http://zzamboni.org/blog.cf-learn.info/the-bird-on-the-cover-of-learning-cfengine-3"/>
+    <updated>2012-03-26T22:17:06-06:00</updated>
+    <id>http://zzamboni.org/blog.cf-learn.info/the-bird-on-the-cover-of-learning-cfengine-3</id>
+    <content type="html"><![CDATA[<p>A lot of people have asked me about the bird on the cover of the book, and I had to admit I didn't know. Unfortunately, the book (even in the print version) does not include a description of the cover in the Colophon, like most other O'Reilly books. But today I got the information directly from Karen Montgomery at O'Reilly, who designed the cover:<p></p></p>
+
+<div>The bird is a <a href="http://en.wikipedia.org/wiki/Tui_(bird)">Tui</a>, a kind of bird that leaves in New Zealand, also known as a Parson Bird. Here's a photo of a real Tui bird:</div>
+
+
+<p></p>
+
+
+<div>
+<div class="p_embed p_image_embed">
+<a href="http://zzamboni.org/blog.cf-learn.info/images/2012/03/26/the-bird-on-the-cover-of-learning-cfengine-3/39446356-Tui_on_flax.jpeg"><img alt="Tui_on_flax" height="333" src="http://zzamboni.org/blog.cf-learn.info/images/2012/03/26/the-bird-on-the-cover-of-learning-cfengine-3/39446356-Tui_on_flax.jpeg" width="500"></a>
+</div>
+</div>
+
+
+<div>(photo by <a href="http://www.flickr.com/photos/69029168@N00">Matt Binns</a>, reused under the <a href="http://creativecommons.org/licenses/by/2.0/deed.en">Creative Commons Attribution 2.0 Generic</a> license)</div>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[My first batch of print books arrived]]></title>
+    <link href="http://zzamboni.org/blog.cf-learn.info/my-first-batch-of-print-books-arrived"/>
+    <updated>2012-03-26T07:56:32-06:00</updated>
+    <id>http://zzamboni.org/blog.cf-learn.info/my-first-batch-of-print-books-arrived</id>
+    <content type="html"><![CDATA[<p>I'm visiting Purdue University today to give a talk and to visit old friends and colleagues. And the first box of books arrived here! It's incredible to have the physical book in my hand.<p></p></p>
+
+<div class="p_embed p_image_embed">
+<img alt="Img_0515" height="640" src="http://zzamboni.org/blog.cf-learn.info/images/2012/03/26/my-first-batch-of-print-books-arrived/39422579-IMG_0515.jpeg" width="479">
+</div>
+
+
+<p>This is the building where I spent most of my grad school years.</p>
+
+
+<p></p>
+
+
+<div class="p_embed p_image_embed">
+<a href="http://zzamboni.org/blog.cf-learn.info/images/2012/03/26/my-first-batch-of-print-books-arrived/39422580-IMG_0514.jpeg"><img alt="Img_0514" height="374" src="http://zzamboni.org/blog.cf-learn.info/images/2012/03/26/my-first-batch-of-print-books-arrived/39422580-IMG_0514.jpeg" width="500"></a>
+</div>
+
+]]></content>
+  </entry>
+  
+</feed>

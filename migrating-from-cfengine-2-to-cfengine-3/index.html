@@ -1,0 +1,225 @@
+
+<!DOCTYPE html>
+<!--[if IEMobile 7 ]><html class="no-js iem7"><![endif]-->
+<!--[if lt IE 9]><html class="no-js lte-ie8"><![endif]-->
+<!--[if (gt IE 8)|(gt IEMobile 7)|!(IEMobile)|!(IE)]><!--><html class="no-js" lang="en"><!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <title>Migrating from CFEngine 2 to CFEngine 3 - Blog</title>
+  <meta name="author" content="Diego Zamboni">
+
+  
+  <meta name="description" content="When designing the CFEngine 3 language, its author Mark Burgess decided a complete overhaul was needed. This decision freed CFEngine 3 from any &hellip;">
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://zzamboni.org/blog.cf-learn.info/migrating-from-cfengine-2-to-cfengine-3">
+  <link href="/favicon.png" rel="icon">
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+  <link href="/atom.xml" rel="alternate" title="Blog" type="application/atom+xml">
+  <script src="/javascripts/modernizr-2.0.js"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script>!window.jQuery && document.write(unescape('%3Cscript src="./javascripts/lib/jquery.min.js"%3E%3C/script%3E'))</script>
+  <script src="/javascripts/octopress.js" type="text/javascript"></script>
+  <!--Fonts from Google"s Web font directory at http://google.com/webfonts -->
+<link href="http://fonts.googleapis.com/css?family=PT+Serif:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=PT+Sans:regular,italic,bold,bolditalic" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+<body   >
+  <header role="banner"><hgroup>
+  <h1><a href="/">Blog</a></h1>
+  
+    <h2>News about "Learning CFEngine 3"</h2>
+  
+</hgroup>
+
+</header>
+  <nav role="navigation"><ul class="subscription" data-subscription="rss">
+  <li><a href="/atom.xml" rel="subscribe-rss" title="subscribe via RSS">RSS</a></li>
+  
+</ul>
+  
+<form action="http://google.com/search" method="get">
+  <fieldset role="search">
+    <input type="hidden" name="q" value="site:zzamboni.org/blog.cf-learn.info" />
+    <input class="search" type="text" name="q" results="0" placeholder="Search"/>
+  </fieldset>
+</form>
+  
+<ul class="main-navigation">
+  <li><a href="/">Blog</a></li>
+  <li><a href="/blog/archives">Archives</a></li>
+</ul>
+
+</nav>
+  <div id="main">
+    <div id="content">
+      <div>
+<article class="hentry" role="article">
+  
+  <header>
+    
+      <h1 class="entry-title">Migrating From CFEngine 2 to CFEngine 3</h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-12-21T19:21:00-06:00" pubdate data-updated="true">Dec 21<span>st</span>, 2011</time>
+        
+      </p>
+    
+  </header>
+
+
+<div class="entry-content"><div>When designing the CFEngine 3 language, its author <a href="http://www.markburgess.org/">Mark Burgess</a> decided a complete overhaul was needed. This decision freed CFEngine 3 from any backwards-compatibility constraints, resulting in a completely new language that is much more flexible, extensible, powerful and expressive.</div>
+<p></p>
+<div>Unfortunately, this means that migrating from CFEngine 2 to CFEngine 3 is not automated, and requires a certain level of hand-tweaking. One of the frequent comments I heard at LISA&#8217;11 was from people who are currently using CFEngine 2, and have been hesitant of migrating to CFEngine 3 because they are not sure how to proceed, and are afraid of the amount of work it will involve (and also, &#8220;if it ain&#8217;t broke, don&#8217;t fix it&#8221;). However, upgrading to CFEngine 3 is a tremendous opportunity for improving the state of the infrastructure, and many of its features can help in making the policies more understandable, flexible and scalable. It is partly for this reason that there is no automatic conversion tool from CF2 to CF3 policy format. Doing it by hand allows close examination of the policies, their intended purpose, and provides an opportunity to improve them in the process.</div>
+<p></p>
+<div>To help, there is the <a href="http://cfengine.com/manuals/cf3-upgrade.html">Upgrading from CFEngine 2 to 3</a> guide. It contains some general suggestions, different ways in which the conversion can be handled, and a &#8220;Translation Codebook&#8221; that helps in converting from CFEngine 2 constructs to their equivalents in CFEngine 3.</div>
+<p></p>
+<div>Additionally, CFEngine AS is holding a webinar called <a href="http://info.cfengine.com/MigrationfromCFEngine2toCFEngine3_Registration.html">Migrating from CFEngine 2 to CFEngine 3</a> on January 25th, 2012. It will be imparted by Joe Netzel from CFEngine. Joe is a great speaker and teacher, and knows CFEngine in and out, so the webinar is assured to be full of good content, and a fantastic learning opportunity. It&#8217;s free, so why not <a href="http://info.cfengine.com/MigrationfromCFEngine2toCFEngine3_Registration.html">sign up</a>?</div>
+</div>
+
+
+  <footer>
+    <p class="meta">
+      
+  
+
+<span class="byline author vcard">Posted by <span class="fn">Diego Zamboni</span></span>
+
+      
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2011-12-21T19:21:00-06:00" pubdate data-updated="true">Dec 21<span>st</span>, 2011</time>
+      
+
+<span class="categories">
+  
+    <a class='category' href='/categories/cf2/'>cf2</a>, <a class='category' href='/categories/cf3/'>cf3</a>, <a class='category' href='/categories/migration/'>migration</a>, <a class='category' href='/categories/webinars/'>webinars</a>
+  
+</span>
+
+
+    </p>
+    
+      <div class="sharing">
+  
+  <a href="http://twitter.com/share" class="twitter-share-button" data-url="http://zzamboni.org/blog.cf-learn.info/migrating-from-cfengine-2-to-cfengine-3" data-via="" data-counturl="http://zzamboni.org/blog.cf-learn.info/migrating-from-cfengine-2-to-cfengine-3" >Tweet</a>
+  
+  
+  
+</div>
+
+    
+    <p class="meta">
+      
+        <a class="basic-alignment left" href="/httpcf-learninfo-goes-live" title="Previous Post: http://cf-learn.info/ goes live">&laquo; http://cf-learn.info/ goes live</a>
+      
+      
+        <a class="basic-alignment right" href="/cf-cmd-a-command-line-tool-for-running-cfengi" title="Next Post: cf-cmd: A command-line tool for running CFEngine snippets">cf-cmd: A command-line tool for running CFEngine snippets &raquo;</a>
+      
+    </p>
+  </footer>
+</article>
+
+</div>
+
+<aside class="sidebar">
+  
+    <section>
+  <h1>Recent Posts</h1>
+  <ul id="recent_posts">
+    
+      <li class="post">
+        <a href="/learning-cfengine-3-at-lisa12">"Learning CFEngine 3" at LISA'12</a>
+      </li>
+    
+      <li class="post">
+        <a href="/second-release-of-learning-cfengine-3">Second release of "Learning CFEngine 3"</a>
+      </li>
+    
+      <li class="post">
+        <a href="/cfengine-tip-004-how-to-bootstrap-a-cfengine">CFEngine tip #004: How to bootstrap a CFEngine client</a>
+      </li>
+    
+      <li class="post">
+        <a href="/cfengine-tip-003-the-distinction-between-bodi">CFEngine tip #003: The distinction between bodies and bundles</a>
+      </li>
+    
+      <li class="post">
+        <a href="/cfengine-tip-002-how-to-pass-arguments-to-bun">CFEngine tip #002: How to pass arguments to bundles using arrays</a>
+      </li>
+    
+  </ul>
+</section>
+
+
+
+
+
+  
+</aside>
+
+
+    </div>
+  </div>
+  <footer role="contentinfo"><p>
+  Copyright &copy; 2013 - Diego Zamboni -
+  <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>
+</p>
+
+</footer>
+  
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = 'http://platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+
+
+
+</body>
+</html>

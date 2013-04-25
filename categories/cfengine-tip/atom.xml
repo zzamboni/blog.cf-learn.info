@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: cfengine_tip | Blog]]></title>
+  <link href="http://zzamboni.org/blog.cf-learn.info/categories/cfengine-tip/atom.xml" rel="self"/>
+  <link href="http://zzamboni.org/blog.cf-learn.info/"/>
+  <updated>2013-04-25T00:46:52-05:00</updated>
+  <id>http://zzamboni.org/blog.cf-learn.info/</id>
+  <author>
+    <name><![CDATA[Diego Zamboni]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[CFEngine tip #004: How to bootstrap a CFEngine client]]></title>
+    <link href="http://zzamboni.org/blog.cf-learn.info/cfengine-tip-004-how-to-bootstrap-a-cfengine"/>
+    <updated>2012-09-25T17:13:00-05:00</updated>
+    <id>http://zzamboni.org/blog.cf-learn.info/cfengine-tip-004-how-to-bootstrap-a-cfengine</id>
+    <content type="html"><![CDATA[<p>My apologies for the long delay since the last tip! Today we come back with a simple tip: how to bootstrap a CFEngine client.</p>
+
+
+
+
+<h2>First, some background</h2>
+
+
+
+
+<p>CFEngine is designed to operate in a fully distributed fashion – each CFEngine client (i.e. a machine running <code>cf-agent</code>) can operate fully autonomously, using only the policy files stored locally. For regular operation, <code>cf-agent</code> does not require any type of network connectivity.</p>
+
+
+
+
+<p>In real deployments, of course, maintaining each machine’s policy independently would be impractical, so CFEngine has the concept of a <em>policy hub</em>. In CFEngine Community, the policy hub is simply a file server, a machine from which others can download policy files. This allows having a single point of distribution, so that changes made there can be distributed to a large number of clients. In CFEngine Enterprise, the hub has a more complex role, acting also as an aggregator of data from the clients, for the purposes of reporting and analysis.</p>
+
+
+
+
+<p>All CFEngine clients will copy to their local <code>/var/cfengine/inputs/</code> directory the contents of <code>/var/cfengine/masterfiles/</code> in the policy hub, so that is where you should make any changes that you want distributed to all the machines.</p>
+
+
+
+
+<h2>Bootstrapping</h2>
+
+
+
+
+<p>When a new client is installed, it needs to be told which machine is the policy hub to which it should connect. This is done using the following command:</p>
+
+
+
+
+<div class="CodeRay">
+  <div class="code"><pre># cf-agent --bootstrap --policy-server=10.0.2.15</pre></div>
+</div>
+
+
+
+
+<p>You should, of course, replace 10.0.2.15 with the actual IP address of the hub to which you want to bootstrap. The first machine you install will be the policy hub itself, and it should bootstrap to itself. In this case, you have to use its own external IP address, and not “localhost” or 127.0.0.1.</p>
+
+
+
+
+<p>When you issue this command on the policy hub, you will see a message like this, that indicates the host recognizes itself as a policy hub:</p>
+
+
+
+
+<div class="CodeRay">
+  <div class="code"><pre># cf-agent --bootstrap --policy-server=10.0.2.15
+** CFEngine BOOTSTRAP probe initiated
+
+   @@@     
+   @@@      CFEngine
+
+ @ @@@ @    CFEngine Core 3.3.5
+ @ @@@ @   
+ @ @@@ @   
+ @     @   
+   @@@     
+   @ @     
+   @ @     
+   @ @     
+
+Copyright (C) CFEngine AS 2008-2012
+See Licensing at http://cfengine.com/3rdpartylicenses
+
+ -&gt; This host is: precise32
+ -&gt; Operating System Type is linux
+ -&gt; Operating System Release is 3.2.0-23-generic-pae
+ -&gt; Architecture = i686
+ -&gt; Internal soft-class is linux
+ -&gt; No previous policy has been cached on this host
+ -&gt; Assuming the policy distribution point at: 10.0.2.15:/var/cfengine/masterfiles
+ -&gt; Attempting to initiate promised autonomous services...
+
+ ** This host recognizes itself as a CFEngine Policy Hub, with policy distribution and knowledge base.
+ -&gt; The system is now converging. Full initialisation and self-analysis could take up to 30 minutes
+
+R: This host assumes the role of policy distribution host
+R:  -&gt; Updated local policy from policy server
+R:  -&gt; Started the server
+R:  -&gt; Started the scheduler
+-&gt; Bootstrap to 10.0.2.15 completed successfully</pre></div>
+</div>
+
+
+
+
+<p>If you issue it on a client, you will see a similar message, but indicating that it is bootstrapping from a different machine.</p>
+
+
+
+
+<p>Regardless of what you use, after bootstrap you should see <code>/var/cfengine/inputs/</code> populated with the default set of policy files, and both <code>cf-execd</code> and <code>cf-serverd</code>  should be running:</p>
+
+
+
+
+<div class="CodeRay">
+  <div class="code"><pre># ps axw | grep [c]f-
+16099 ?        Ss     0:00 /var/cfengine/bin/cf-execd
+16102 ?        Ss     0:00 /var/cfengine/bin/cf-serverd</pre></div>
+</div>
+
+
+
+
+<p>Once this has been done, CFEngine will start running every 5 minutes, updating its policy files from the hub, and executing them afterwards.</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[CFEngine tip #003: The distinction between bodies and bundles]]></title>
+    <link href="http://zzamboni.org/blog.cf-learn.info/cfengine-tip-003-the-distinction-between-bodi"/>
+    <updated>2012-06-04T11:21:00-05:00</updated>
+    <id>http://zzamboni.org/blog.cf-learn.info/cfengine-tip-003-the-distinction-between-bodi</id>
+    <content type="html"><![CDATA[<p>This is an extract from Chapter 3 of "Learning CFEngine 3", where you can also find a much more comprehensive description of bodies and bundles in the CFEngine 3 policy language.</p>
+
+
+<p>The distinction between bundles and bodies can be confusing at first. Remembering these points may help:</p>
+
+
+<ul>
+<li>
+<p>Bodies are named groups of attributes, whereas bundles are collections of promises. Promises are the units that actually do something in CFEngine (for example, run a command or add a line to a file), whereas attributes specify characteristics of how things are done (for example, whether to run the command in a shell, or where in the file to add the line).</p>
+</li>
+<li>
+<p>The value of an attribute can be a basic data type (string, integer, list, etc.), it can be the name of a body, or it can be the name of a bundle.</p>
+</li>
+<li>
+<p>The type of an attribute’s value is fixed, and determined by the attribute itself (for example, the value of the depth_search attribute in a files: promise is always a body, and the value of an edit_line attribute is always a bundle).</p>
+</li>
+<li>
+<p>For bodies and bundles, their type is always the name of the attribute to which they correspond. For example, bodies to be used with the depth_search attribute are always declared as “body depth_search xyz”, where xyz is an arbitrary name of your choosing. The same goes for bundles: bundles to be used with the edit_line attribute are always declared as “bundle edit_line xyz".</p>
+<p>There are only four types of “top level” bundles that are not used as arguments to attributes: agent, server, knowledge and monitor.</p>
+</li>
+<li>
+<p>The promise types (sections) that can appear in a bundle are determined by the bundle type. For example, commands: promises can only appear in bundles of type agent. </p>
+</li>
+</ul>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[CFEngine tip #002: How to pass arguments to bundles using arrays]]></title>
+    <link href="http://zzamboni.org/blog.cf-learn.info/cfengine-tip-002-how-to-pass-arguments-to-bun"/>
+    <updated>2012-05-07T10:00:00-05:00</updated>
+    <id>http://zzamboni.org/blog.cf-learn.info/cfengine-tip-002-how-to-pass-arguments-to-bun</id>
+    <content type="html"><![CDATA[<p>(This tip is based on a section from Chapter 5 of Learning CFEngine 3.)</p>
+
+
+
+
+<p>Many system configuration tasks require groups of name-value pairs as arguments. For example:</p>
+
+
+
+
+<ul>
+<li>Editing configuration files in which parameters and their values need to be stored (ssh configuration files, Windows-style INI files, etc.)</li>
+<li>Setting user parameters. In this case, sets of name-value pairs (home directory, full name, shell, etc.) are associated with a single user, identified by name.</li>
+</ul>
+
+
+<p>Having sets of related values in a single array has a number of advantages, since they can be manipulated by a single set of promises just by varying the indices used to access them. To make use of this array, you have to pass it as an argument to a bundle. One of the most useful functions in this technique is <a href="http://cf-learn.info/ref/getindices">getindices()</a>, which returns a list containing the indices of the given array, and can be used to produce an enumeration of the elements over which to iterate. The complementary function to get just the values is <a href="http://cf-learn.info/ref/getvalues">getvalues()</a>. For example, consider <a href="http://cf-learn.info/code/ch04/configfiles2.cf.html">this bundle</a>:</p>
+
+
+
+
+<p><div><script src='https://gist.github.com/2605453.js?file=arguments1.cf'></script>
+<noscript><pre><code>bundle agent configfiles
+{
+  vars:  
+      # SSHD configuration to set
+      &quot;sshd[Protocol]&quot;                                string =&gt; &quot;2&quot;;
+      &quot;sshd[X11Forwarding]&quot;                           string =&gt; &quot;yes&quot;;
+      &quot;sshd[UseDNS]&quot;                                  string =&gt; &quot;no&quot;;
+
+  methods:
+      &quot;sshd&quot;    usebundle =&gt; edit_sshd(&quot;configfiles.sshd&quot;);
+}
+
+bundle agent edit_sshd
+{
+  files:
+      &quot;/etc/sshd/sshd_config&quot;
+        handle =&gt; &quot;edit_sshd&quot;,
+        comment =&gt; &quot;Set desired sshd_config parameters&quot;,
+        edit_line =&gt; set_config_values(&quot;configfiles.sshd&quot;),
+        classes =&gt; if_repaired(&quot;restart_sshd&quot;);
+}
+</code></pre></noscript></div>
+</p>
+
+
+
+
+<p>To pass arrays as arguments we must pass a string with the name of the array, and then dereference it inside the function. The argument we are passing to set_config_values() is “configfiles.sshd”, which refers to the sshd array defined in the configfiles() bundle.  The dereferencing happens in the <a href="https://github.com/cfengine/copbl/blob/master/cfengine_stdlib.cf#L278">set_config_values() bundle</a>:</p>
+
+
+
+
+<p><div><script src='https://gist.github.com/2605453.js?file=set_config_values.cf'></script>
+<noscript><pre><code>bundle edit_line set_config_values(v)
+{
+  vars:
+      &quot;index&quot; slist =&gt; getindices(&quot;$(v)&quot;);
+      &quot;cindex[$(index)]&quot; string =&gt; canonify(&quot;$(index)&quot;);
+
+  replace_patterns:
+      # If the line is there, maybe commented out, uncomment and replace with
+      # the correct value
+      &quot;^\s*($(index)\s+(?!$($(v)[$(index)])).*|# ?$(index)\s+.*)$&quot;
+        replace_with =&gt; value(&quot;$(index) $($(v)[$(index)])&quot;),
+        classes =&gt; always(&quot;replace_attempted_$(cindex[$(index)])&quot;);
+
+  insert_lines:
+      &quot;$(index) $($(v)[$(index)])&quot;
+        ifvarclass =&gt; &quot;replace_attempted_$(cindex[$(index)])&quot;;
+}
+</code></pre></noscript></div>
+</p>
+
+
+
+
+<p>This bundle receives the name of the array as the “v” parameter, so we dereference the array and its values by using <code>$(v)</code> wherever we would normally use the array name. For example, to loop over the array elements using the indices stored in the <code>$(index)</code> list, we use <code>$($(v)[$(index)])</code> instead of <code>$(configfiles.sshd[$(index)])</code>.</p>
+
+
+
+
+<p>To group name/value sets into named groups, we can use two-dimensional arrays, as in <a href="http://cf-learn.info/code/ch04/users_use.cf.html">this example</a>:</p>
+
+
+
+
+<p><div><script src='https://gist.github.com/2605453.js?file=users_use.cf'></script>
+<noscript><pre><code>bundle agent manage_users
+{
+  vars:
+      # Users to create
+      &quot;users[root][fullname]&quot;  string =&gt; &quot;System administrator&quot;;
+      &quot;users[root][uid]&quot;       string =&gt; &quot;0&quot;;
+      &quot;users[root][gid]&quot;       string =&gt; &quot;0&quot;;
+      &quot;users[root][home]&quot;      string =&gt; &quot;/root&quot;;
+      &quot;users[root][shell]&quot;     string =&gt; &quot;/bin/bash&quot;;
+      &quot;users[root][flags]&quot;     string =&gt; &quot;-o -m&quot;;
+      &quot;users[root][password]&quot;  string =&gt; &quot;FkDMzhB1WnOp2&quot;;
+
+      &quot;users[zamboni][fullname]&quot;  string =&gt; &quot;Diego Zamboni&quot;;
+      &quot;users[zamboni][uid]&quot;       string =&gt; &quot;501&quot;;
+      &quot;users[zamboni][gid]&quot;       string =&gt; &quot;users&quot;;
+      &quot;users[zamboni][home]&quot;      string =&gt; &quot;/home/zamboni&quot;;
+      &quot;users[zamboni][shell]&quot;     string =&gt; &quot;/bin/bash&quot;;
+      &quot;users[zamboni][flags]&quot;     string =&gt; &quot;-m&quot;;
+      &quot;users[zamboni][password]&quot;  string =&gt; &quot;dk52ia209rfuh&quot;;
+
+  methods:
+      &quot;users&quot;   usebundle =&gt; create_users(&quot;manage_users.users&quot;);
+}
+</code></pre></noscript></div>
+</p>
+
+
+
+
+<p>In this case the dereferencing can get a little more complicated. For example, let us look at some of the code inside the <a href="http://cf-learn.info/code/ch04/sys_create_users.cf.html">create_users() bundle</a>:</p>
+
+
+
+
+<p><div><script src='https://gist.github.com/2605453.js?file=sys_create_users.cf'></script>
+<noscript><pre><code>bundle agent create_users(info)
+{
+  vars:
+      &quot;user&quot;        slist =&gt; getindices(&quot;$(info)&quot;);
+
+  classes:
+      &quot;add_$(user)&quot; not =&gt; userexists(&quot;$(user)&quot;);
+
+  commands:
+    linux::
+      &quot;/usr/sbin/useradd $($(info)[$(user)][flags]) -u $($(info)[$(user)][uid]) 
+       -g $($(info)[$(user)][gid]) -d $($(info)[$(user)][home]) 
+       -s $($(info)[$(user)][shell]) -c '$($(info)[$(user)][fullname])' $(user)&quot;
+        ifvarclass =&gt; &quot;add_$(user)&quot;;
+...</code></pre></noscript></div>
+</p>
+
+
+
+
+<p>This bundle is being called from the methods: section of the <code>manage_users()</code> bundle, with the string <code>"manage_users.users"</code> as the value of <code>$(info)</code>. We use getindices() directly on this value to get a list of the first-level indices of the array (the user names), which we store in <code>@(user)</code>. Then we use implicit looping over <code>@(user)</code> to cycle through all those values, and we use the following construction to access individual elements of each user’s data: <code>$($(info)[$(user)][field])</code>. This expands to <code>$(manage_users.users[$(user)][field])</code>, on which implicit looping is applied through the <code>$(user)</code> variable. Remember that parenthesis (or curly braces, they mean the same) are required around the whole expression, so that CFEngine recognizes it properly as a variable reference.</p>
+
+
+
+
+<p>While the syntax looks complicated, this data structure allows great flexibility in passing around and using data structures to be used in configuration operations.</p>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[CFEngine tip #001: Modularize complex policies using methods: calls]]></title>
+    <link href="http://zzamboni.org/blog.cf-learn.info/cfengine-tip-001-modularize-complex-policies"/>
+    <updated>2012-04-23T09:44:00-05:00</updated>
+    <id>http://zzamboni.org/blog.cf-learn.info/cfengine-tip-001-modularize-complex-policies</id>
+    <content type="html"><![CDATA[<div>Welcome to the new "CFEngine tip" series. In this series of posts I will explore different tips, tricks and techniques for making better use of CFEngine. For now I will post weekly, but the frequency may change as time goes by. If you have any suggestions for topics that I should cover in this series, please <a href="http://cf-learn.info/contact.html">let me know</a>!</div>
+
+
+<p></p>
+
+
+<div>For our first installment, we will talk about methods: promises, and how they can be used to make policies both clearer and more extensible.</div>
+
+
+<div>
+<hr>
+</div>
+
+
+<p>As your CFEngine policies grow in complexity, they become harder to read if all your promises are in a single bundle, or if you split them among bundles, to have all those bundles listed in the <a href="http://cf-learn.info/ref/bundlesequence">bundlesequence</a> declaration.</p>
+
+
+<div>Enter the <a href="http://cf-learn.info/ref/methods">methods:</a> promise type. Promises of this type allow you to call other bundles in sequence, passing arbitrary parameters. For example, consider the following example (from <a href="http://cf-learn.info/code/ch05/configfiles5.cf.html">Chapter 5</a> of "Learning CFEngine 3"):</div>
+
+
+<p><div><script src='https://gist.github.com/2471468.js?file=methods_ex1.cf'></script>
+<noscript><pre><code>bundle agent configfiles
+{
+  vars:  
+      # Files to edit
+      &quot;files[sysctlconf]&quot; string =&gt; &quot;/etc/sysctl.conf&quot;;
+      &quot;files[sshdconfig]&quot; string =&gt; &quot;/etc/ssh/sshd_config&quot;;
+      &quot;files[inittab]&quot;    string =&gt; &quot;/etc/inittab&quot;;
+      # ...
+
+  methods:
+      # Pass the name of the array, not the array itself.
+      &quot;backup&quot;  usebundle =&gt; backup_files(&quot;configfiles.files&quot;);
+      &quot;sysctl&quot;  usebundle =&gt; edit_sysctl;
+      &quot;sshd&quot;    usebundle =&gt; edit_sshd;
+      &quot;inittab&quot; usebundle =&gt; edit_inittab;
+      &quot;users&quot;   usebundle =&gt; manage_users(&quot;configfiles.users&quot;);
+}
+</code></pre></noscript></div>
+</p>
+
+
+<div>The methods: section makes it very easy to see the sequence of actions that will take place: backup some files, configure sysctl, sshd, inittab and users in sequence. This helps both in clarity and in code reusability: each bundle can perform logically different functionality, and they could potentially be reused in different settings and with different parameters. The promiser string in a methods: promise is an arbitrary string. The CFEngine documentation uses "any", but you can also use it, as in this example, to indicate the purpose of the promise.</div>
+
+
+<p></p>
+
+
+<div>Furthermore, you can use CFEngine's <a href="https://cfengine.com/manuals/cf3-reference#Loops-and-lists-in-CFEngine-3">implicit looping</a> to create generic promises that will call as many other bundles as necessary. Consider this <a href="http://cf-learn.info/code/ch05/configfiles7.cf.html">revised code</a>:</div>
+
+
+<p><div><script src='https://gist.github.com/2471468.js?file=methods_ex2.cf'></script>
+<noscript><pre><code>bundle agent configfiles
+{
+  vars:  
+      # Files to edit
+      &quot;files[sysctl]&quot;     string =&gt; &quot;/etc/sysctl.conf&quot;;
+      &quot;files[sshd]&quot;       string =&gt; &quot;/etc/ssh/sshd_config&quot;;
+      &quot;files[inittab]&quot;    string =&gt; &quot;/etc/inittab&quot;;
+      # ...
+
+      &quot;file_id&quot; slist =&gt; getindices(&quot;files&quot;);
+      &quot;bundle_names&quot; slist =&gt; maplist(&quot;edit_$(this)&quot;, &quot;file_id&quot;);
+
+  methods:
+      &quot;backup&quot;  usebundle =&gt; backup_files(&quot;configfiles.files&quot;);
+      &quot;$(bundle_names)&quot;  usebundle =&gt; $(bundle_names)(&quot;configfiles.files&quot;);
+      &quot;users&quot;   usebundle =&gt; manage_users(&quot;configfiles.users&quot;);
+}
+</code></pre></noscript></div>
+</p>
+
+
+<div>Now the list of bundles to call (edit_sysctl, edit_sshd and edit_inittab) is being built on the fly from the contents of the files array, and used through implicit looping to call the bundles in the methods: promises. Note how you can even pass arguments to these calls. This makes it very easy to extend the functionality by simply adding new elements to the files array (and of course, defining the appropriate edit_* bundle).</div>
+
+
+<p></p>
+
+
+<div>Until next time!</div>
+
+]]></content>
+  </entry>
+  
+</feed>

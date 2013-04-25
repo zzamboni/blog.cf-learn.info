@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: examples | Blog]]></title>
+  <link href="http://zzamboni.org/blog.cf-learn.info/categories/examples/atom.xml" rel="self"/>
+  <link href="http://zzamboni.org/blog.cf-learn.info/"/>
+  <updated>2013-04-25T00:46:52-05:00</updated>
+  <id>http://zzamboni.org/blog.cf-learn.info/</id>
+  <author>
+    <name><![CDATA[Diego Zamboni]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Code examples for "Learning CFEngine 3" now available]]></title>
+    <link href="http://zzamboni.org/blog.cf-learn.info/code-examples-for-learning-cfengine-3-now-ava"/>
+    <updated>2012-01-08T18:00:00-06:00</updated>
+    <id>http://zzamboni.org/blog.cf-learn.info/code-examples-for-learning-cfengine-3-now-ava</id>
+    <content type="html"><![CDATA[<p>I'm happy to announce that the code examples from <a href="http://cf-learn.info/">Learning CFEngine 3</a> are now available for browsing and download at <a href="http://cf-learn.info/code.html">http://cf-learn.info/code.html</a>. You can view or download individual files, and also the whole collection. You can also get them from the <a href="https://github.com/zzamboni/cf-learn.info">GitHub repository</a>. </p>
+
+
+<p></p>
+
+
+<p> These examples are extracted automatically from the source files for the book, and as such reflect exactly the current state of what you will find in it. This also means, of course, that as the book evolves you will see changes in the files. <p></p> As usual, please feel free to play with them, and let me know if you find anything broken.</p>
+]]></content>
+  </entry>
+  
+</feed>

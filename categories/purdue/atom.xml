@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: purdue | Blog]]></title>
+  <link href="http://zzamboni.org/blog.cf-learn.info/categories/purdue/atom.xml" rel="self"/>
+  <link href="http://zzamboni.org/blog.cf-learn.info/"/>
+  <updated>2013-04-25T00:46:52-05:00</updated>
+  <id>http://zzamboni.org/blog.cf-learn.info/</id>
+  <author>
+    <name><![CDATA[Diego Zamboni]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[My first batch of print books arrived]]></title>
+    <link href="http://zzamboni.org/blog.cf-learn.info/my-first-batch-of-print-books-arrived"/>
+    <updated>2012-03-26T07:56:32-06:00</updated>
+    <id>http://zzamboni.org/blog.cf-learn.info/my-first-batch-of-print-books-arrived</id>
+    <content type="html"><![CDATA[<p>I'm visiting Purdue University today to give a talk and to visit old friends and colleagues. And the first box of books arrived here! It's incredible to have the physical book in my hand.<p></p></p>
+
+<div class="p_embed p_image_embed">
+<img alt="Img_0515" height="640" src="http://zzamboni.org/blog.cf-learn.info/images/2012/03/26/my-first-batch-of-print-books-arrived/39422579-IMG_0515.jpeg" width="479">
+</div>
+
+
+<p>This is the building where I spent most of my grad school years.</p>
+
+
+<p></p>
+
+
+<div class="p_embed p_image_embed">
+<a href="http://zzamboni.org/blog.cf-learn.info/images/2012/03/26/my-first-batch-of-print-books-arrived/39422580-IMG_0514.jpeg"><img alt="Img_0514" height="374" src="http://zzamboni.org/blog.cf-learn.info/images/2012/03/26/my-first-batch-of-print-books-arrived/39422580-IMG_0514.jpeg" width="500"></a>
+</div>
+
+]]></content>
+  </entry>
+  
+  <entry>
+    <title type="html"><![CDATA[CFEngine-related speaking engagements from March 26th-28th, 2012]]></title>
+    <link href="http://zzamboni.org/blog.cf-learn.info/cfengine-related-speaking-engagements-from-ma"/>
+    <updated>2012-03-24T23:57:00-06:00</updated>
+    <id>http://zzamboni.org/blog.cf-learn.info/cfengine-related-speaking-engagements-from-ma</id>
+    <content type="html"><![CDATA[<p>I will be giving three CFEngine related talks this week. I would love to see you at any one of them!</p>
+
+
+<p></p>
+
+
+<div>
+<strong>March 26th</strong> - Purdue University, Lawson CS Building 3102, West Lafayette, IN, 1:30PM</div>
+
+
+<p></p>
+
+
+<div style="padding-left: 30px;">
+<span style=""> </span>"CFEngine 3: Empowering the Next-Generation SysAdmin"</div>
+
+
+<p></p>
+
+
+<div>
+<strong>March 27th</strong> - <a href="http://www.meetup.com/devops/events/51903632/">Chicago Devops Meetup, Morningstar, Chicaco, IL, 5:30PM</a>
+</div>
+
+
+<p></p>
+
+
+<div style="padding-left: 30px;">
+<span style=""> </span>"CFEngine 3: Empowering the Next-Generation SysAdmin"</div>
+
+
+<p></p>
+
+
+<div>
+<strong>March 28th</strong> - <a href="http://campconferences.com/events/2012/iom.htm">CampIT conference on IT Infrastructure &amp; Operations Management, Chicago, IL, 9:00AM</a>
+</div>
+
+
+<p></p>
+
+
+<div style="padding-left: 30px;">
+<span style=""> </span>"Achieving IT Infrastructure and Operational Excellence"</div>
+
+]]></content>
+  </entry>
+  
+</feed>
