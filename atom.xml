@@ -4,7 +4,7 @@
   <title><![CDATA[Blog]]></title>
   <link href="http://zzamboni.org/blog.cf-learn.info/atom.xml" rel="self"/>
   <link href="http://zzamboni.org/blog.cf-learn.info/"/>
-  <updated>2013-04-27T22:31:51-05:00</updated>
+  <updated>2013-04-28T00:08:56-05:00</updated>
   <id>http://zzamboni.org/blog.cf-learn.info/</id>
   <author>
     <name><![CDATA[Diego Zamboni]]></name>
@@ -12,6 +12,31 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Blog moving]]></title>
+    <link href="http://zzamboni.org/blog.cf-learn.info/blog-moving/"/>
+    <updated>2013-04-28T00:00:00-05:00</updated>
+    <id>http://zzamboni.org/blog.cf-learn.info/blog-moving</id>
+    <content type="html"><![CDATA[<p>This blog had so far been hosted on posterous.com, but Posterous was
+acquired last year by Twitter, and will be closing down on April
+30th. I have now migrated the blog to Octopress hosted on GitHub, the
+same as the rest of the <a href="http://cf-learn.info/">cf-learn.info</a> site.</p>
+
+<p>All the posts have been migrated, but there are still some rough
+edges. Most notably, comments have not been migrated yet, and the
+theme in the blog is different than the rest of the pages. Please bear
+with me, and let me know if you find anything else broken.</p>
+
+<p>BTW, if you are subscribed to the blog through its feedburner.com
+feed, you should not need to do anything to migrate (if you are seeing
+this post, it means you are already seeing the new site). Otherwise,
+please subscribe to the feedburner.com feed at
+<a href="http://feedburner.com/cf-learn">http://feedburner.com/cf-learn</a>.</p>
+
+<p>Thank you for reading! More frequent posts coming soon.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA["Learning CFEngine 3" at LISA'12]]></title>
@@ -554,35 +579,6 @@ bundle agent edit_sshd
     <updated>2012-02-29T12:07:10-06:00</updated>
     <id>http://zzamboni.org/blog.cf-learn.info/book-status-production</id>
     <content type="html"><![CDATA[Some people have asked me what the status of the book is, so I thought I would post it here. The book is currently in the &#8220;production stage&#8221;, which means that the draft has been finalized content-wise, and is now being prepared for publication by O&#8217;Reilly. They have a specialized group of people for this, who work on preparing nice final versions of the figures, making sure the layout of the book is correct, and doing a few thorough proofreading and editing passes. <p></p> This means that it&#8217;s now really close to publication. I cannot make any promises about the specific date, but it should be before the end of March. <p></p> Thank you for your interest!
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Searching CFEngine documentation]]></title>
-    <link href="http://zzamboni.org/blog.cf-learn.info/searching-cfengine-documentation"/>
-    <updated>2012-02-02T18:13:00-06:00</updated>
-    <id>http://zzamboni.org/blog.cf-learn.info/searching-cfengine-documentation</id>
-    <content type="html"><![CDATA[<div><span style="font-family: Georgia; font-size: medium;">The <a href="https://cfengine.com/manuals/cf3-reference.html">CFEngine Reference Manual</a> is extremely useful, and is the ultimate guide to everything about CFEngine. However, it is not always the easiest to find what you are looking for.</span></div>
-<p></p>
-<div><span style="font-family: Georgia; font-size: medium;">To help in this respect, I have created a cross-referenced index of all the section headings in the manual. You can search it using the second search box on the right of any page of this site. For example, try searching for &#8220;ifvarclass&#8221;, and you will be redirected to the section of the manual that described that attribute. If your search term matches more than one section (for example, try searching for &#8220;root&#8221;), you will be shown a disambiguation page where you can select which one you want.</span></div>
-<p></p>
-<div><span style="font-family: Georgia; font-size: medium;">You can also search the index directly by going to http://cf-learn.info/ref/keyword, replacing &#8220;keyword&#8221; with your search term. Without a search term (<a href="http://cf-learn.info/ref/">http://cf-learn.info/ref/</a>), it will redirect you to the top of the manual. Here are a few examples to get you started:</span></div>
-<div><span style="font-family: Georgia; font-size: medium;"><span style=""> </span><a href="http://cf-learn.info/ref/ifvarclass">http://cf-learn.info/ref/ifvarclass</a></span></div>
-<div><span style="font-family: Georgia; font-size: medium;"><span style=""> </span><a href="http://cf-learn.info/ref/files">http://cf-learn.info/ref/files</a></span></div>
-<div><span style="font-family: Georgia; font-size: medium;"><span style=""> </span><a href="http://cf-learn.info/ref/ordering">http://cf-learn.info/ref/ordering</a></span></div>
-<p></p>
-<div><span style="font-family: Georgia; font-size: small;"><strong>In the electronic versions of the book, all CFEngine keywords in the text will be linked to this index, to provide you easy access to the reference documentation about that concept.</strong></span></div>
-<p></p>
-<div><span style="font-family: Georgia; font-size: medium;">But the real power, in my opinion, comes from using these links as browser &#8220;search keywords&#8221;. Most modern browsers allow you to define search keywords or search engines. If you define a keyword whose search URL is as shown above (using whatever mechanism necessary to put the search term in the place of &#8220;keyword&#8221;, then you will be able to easily search the CFEngine docs. For example, using <a href="http://hackemist.com/SafariOmnibar/">Safari Omnibar</a>, I have defined a new &#8220;search provider&#8221; as follows:</span></div>
-<p></p>
-<div><span style="font-family: Georgia; font-size: medium;"><div class="p_embed p_image_embed">
-<a href="http://zzamboni.org/blog.cf-learn.info/images/2012/02/02/searching-cfengine-documentation/37470468-PastedGraphic-2.png"><img alt="Pastedgraphic-2" height="199" src="http://zzamboni.org/blog.cf-learn.info/images/2012/02/02/searching-cfengine-documentation/37470468-PastedGraphic-2.png" width="500"></a>
-</div>
-</span></div>
-<p></p>
-<div><span style="font-family: Georgia; font-size: medium;">So now I can simply type &#8220;cf keyword&#8221; in my Safari URL bar and it will do a search for that keyword.</span></div>
-<p></p>
-<div><span style="font-family: Georgia; font-size: medium;">Enjoy!</span></div>
 ]]></content>
   </entry>
   

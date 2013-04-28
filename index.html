@@ -9,7 +9,9 @@
   <meta name="author" content="Diego Zamboni">
 
   
-  <meta name="description" content="Last week I attended the Usenix LISA&#8217;12 conference in San Diego, and the awesome people at O&#8217;Reilly organized a book signing while we &hellip;">
+  <meta name="description" content="This blog had so far been hosted on posterous.com, but Posterous was
+acquired last year by Twitter, and will be closing down on April
+30th. I have &hellip;">
   
 
   <!-- http://t.co/dKP3o1e -->
@@ -71,6 +73,58 @@
     <div id="content">
       <div class="blog-index">
   
+  
+  
+    <article>
+      
+  <header>
+    
+      <h1 class="entry-title"><a href="/blog-moving/">Blog Moving</a></h1>
+    
+    
+      <p class="meta">
+        
+
+
+
+
+
+
+
+
+  
+
+
+<time datetime="2013-04-28T00:00:00-05:00" pubdate data-updated="true">Apr 28<span>th</span>, 2013</time>
+        
+      </p>
+    
+  </header>
+
+
+  <div class="entry-content"><p>This blog had so far been hosted on posterous.com, but Posterous was
+acquired last year by Twitter, and will be closing down on April
+30th. I have now migrated the blog to Octopress hosted on GitHub, the
+same as the rest of the <a href="http://cf-learn.info/">cf-learn.info</a> site.</p>
+
+<p>All the posts have been migrated, but there are still some rough
+edges. Most notably, comments have not been migrated yet, and the
+theme in the blog is different than the rest of the pages. Please bear
+with me, and let me know if you find anything else broken.</p>
+
+<p>BTW, if you are subscribed to the blog through its feedburner.com
+feed, you should not need to do anything to migrate (if you are seeing
+this post, it means you are already seeing the new site). Otherwise,
+please subscribe to the feedburner.com feed at
+<a href="http://feedburner.com/cf-learn">http://feedburner.com/cf-learn</a>.</p>
+
+<p>Thank you for reading! More frequent posts coming soon.</p>
+</div>
+  
+  
+
+
+    </article>
   
   
     <article>
@@ -664,95 +718,6 @@ bundle agent edit_sshd
 
     </article>
   
-  
-    <article>
-      
-  <header>
-    
-      <h1 class="entry-title"><a href="/cfengine-tip-001-modularize-complex-policies">CFEngine Tip #001: Modularize Complex Policies Using Methods: Calls</a></h1>
-    
-    
-      <p class="meta">
-        
-
-
-
-
-
-
-
-
-  
-
-
-<time datetime="2012-04-23T09:44:00-05:00" pubdate data-updated="true">Apr 23<span>rd</span>, 2012</time>
-        
-      </p>
-    
-  </header>
-
-
-  <div class="entry-content"><div>Welcome to the new &#8220;CFEngine tip&#8221; series. In this series of posts I will explore different tips, tricks and techniques for making better use of CFEngine. For now I will post weekly, but the frequency may change as time goes by. If you have any suggestions for topics that I should cover in this series, please <a href="http://cf-learn.info/contact.html">let me know</a>!</div>
-<p></p>
-<div>For our first installment, we will talk about methods: promises, and how they can be used to make policies both clearer and more extensible.</div>
-<div>
-<hr>
-</div>
-<p>As your CFEngine policies grow in complexity, they become harder to read if all your promises are in a single bundle, or if you split them among bundles, to have all those bundles listed in the <a href="http://cf-learn.info/ref/bundlesequence">bundlesequence</a> declaration.</p>
-<div>Enter the <a href="http://cf-learn.info/ref/methods">methods:</a> promise type. Promises of this type allow you to call other bundles in sequence, passing arbitrary parameters. For example, consider the following example (from <a href="http://cf-learn.info/code/ch05/configfiles5.cf.html">Chapter 5</a> of &#8220;Learning CFEngine 3&#8221;):</div>
-<p><div><script src='https://gist.github.com/2471468.js?file=methods_ex1.cf'></script>
-<noscript><pre><code>bundle agent configfiles
-{
-  vars:  
-      # Files to edit
-      &quot;files[sysctlconf]&quot; string =&gt; &quot;/etc/sysctl.conf&quot;;
-      &quot;files[sshdconfig]&quot; string =&gt; &quot;/etc/ssh/sshd_config&quot;;
-      &quot;files[inittab]&quot;    string =&gt; &quot;/etc/inittab&quot;;
-      # ...
-
-  methods:
-      # Pass the name of the array, not the array itself.
-      &quot;backup&quot;  usebundle =&gt; backup_files(&quot;configfiles.files&quot;);
-      &quot;sysctl&quot;  usebundle =&gt; edit_sysctl;
-      &quot;sshd&quot;    usebundle =&gt; edit_sshd;
-      &quot;inittab&quot; usebundle =&gt; edit_inittab;
-      &quot;users&quot;   usebundle =&gt; manage_users(&quot;configfiles.users&quot;);
-}
-</code></pre></noscript></div>
-</p>
-<div>The methods: section makes it very easy to see the sequence of actions that will take place: backup some files, configure sysctl, sshd, inittab and users in sequence. This helps both in clarity and in code reusability: each bundle can perform logically different functionality, and they could potentially be reused in different settings and with different parameters. The promiser string in a methods: promise is an arbitrary string. The CFEngine documentation uses &#8220;any&#8221;, but you can also use it, as in this example, to indicate the purpose of the promise.</div>
-<p></p>
-<div>Furthermore, you can use CFEngine&#8217;s <a href="https://cfengine.com/manuals/cf3-reference#Loops-and-lists-in-CFEngine-3">implicit looping</a> to create generic promises that will call as many other bundles as necessary. Consider this <a href="http://cf-learn.info/code/ch05/configfiles7.cf.html">revised code</a>:</div>
-<p><div><script src='https://gist.github.com/2471468.js?file=methods_ex2.cf'></script>
-<noscript><pre><code>bundle agent configfiles
-{
-  vars:  
-      # Files to edit
-      &quot;files[sysctl]&quot;     string =&gt; &quot;/etc/sysctl.conf&quot;;
-      &quot;files[sshd]&quot;       string =&gt; &quot;/etc/ssh/sshd_config&quot;;
-      &quot;files[inittab]&quot;    string =&gt; &quot;/etc/inittab&quot;;
-      # ...
-
-      &quot;file_id&quot; slist =&gt; getindices(&quot;files&quot;);
-      &quot;bundle_names&quot; slist =&gt; maplist(&quot;edit_$(this)&quot;, &quot;file_id&quot;);
-
-  methods:
-      &quot;backup&quot;  usebundle =&gt; backup_files(&quot;configfiles.files&quot;);
-      &quot;$(bundle_names)&quot;  usebundle =&gt; $(bundle_names)(&quot;configfiles.files&quot;);
-      &quot;users&quot;   usebundle =&gt; manage_users(&quot;configfiles.users&quot;);
-}
-</code></pre></noscript></div>
-</p>
-<div>Now the list of bundles to call (edit_sysctl, edit_sshd and edit_inittab) is being built on the fly from the contents of the files array, and used through implicit looping to call the bundles in the methods: promises. Note how you can even pass arguments to these calls. This makes it very easy to extend the functionality by simply adding new elements to the files array (and of course, defining the appropriate edit_* bundle).</div>
-<p></p>
-<div>Until next time!</div>
-</div>
-  
-  
-
-
-    </article>
-  
   <div class="pagination">
     
       <a class="prev" href="/page/2/">&larr; Older</a>
@@ -768,6 +733,10 @@ bundle agent edit_sshd
   <ul id="recent_posts">
     
       <li class="post">
+        <a href="/blog-moving/">Blog moving</a>
+      </li>
+    
+      <li class="post">
         <a href="/learning-cfengine-3-at-lisa12">&#8220;Learning CFEngine 3&#8221; at LISA&#8217;12</a>
       </li>
     
@@ -781,10 +750,6 @@ bundle agent edit_sshd
     
       <li class="post">
         <a href="/cfengine-tip-003-the-distinction-between-bodi">CFEngine tip #003: The distinction between bodies and bundles</a>
-      </li>
-    
-      <li class="post">
-        <a href="/cfengine-tip-002-how-to-pass-arguments-to-bun">CFEngine tip #002: How to pass arguments to bundles using arrays</a>
       </li>
     
   </ul>
