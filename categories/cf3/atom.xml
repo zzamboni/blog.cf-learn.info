@@ -4,7 +4,7 @@
   <title><![CDATA[Category: cf3 | Blog]]></title>
   <link href="http://zzamboni.org/blog.cf-learn.info/categories/cf3/atom.xml" rel="self"/>
   <link href="http://zzamboni.org/blog.cf-learn.info/"/>
-  <updated>2013-07-05T14:31:35-05:00</updated>
+  <updated>2013-07-05T14:32:58-05:00</updated>
   <id>http://zzamboni.org/blog.cf-learn.info/</id>
   <author>
     <name><![CDATA[Diego Zamboni]]></name>
@@ -39,7 +39,10 @@
 <div>Additionally, CFEngine AS is holding a webinar called <a href="http://info.cfengine.com/MigrationfromCFEngine2toCFEngine3_Registration.html">Migrating from CFEngine 2 to CFEngine 3</a> on January 25th, 2012. It will be imparted by Joe Netzel from CFEngine. Joe is a great speaker and teacher, and knows CFEngine in and out, so the webinar is assured to be full of good content, and a fantastic learning opportunity. It's free, so why not <a href="http://info.cfengine.com/MigrationfromCFEngine2toCFEngine3_Registration.html">sign up</a>?</div>
 
 
-<p><b>Update:</b> the webinar has passed, but you can view <a href="https://cfengine.com/demos/upgrade-2to3-Feb">the recording</a> and a related <a href="http://es.slideshare.net/cfengine/upgrading-from-cfengine-2-to-cfengine-3">presentation</a>.</p>
+<p></p>
+
+
+<div><strong>Update:</strong> the webinar has passed, but you can view <a href="https://cfengine.com/demos/upgrade-2to3-Feb">the recording</a> and a related <a href="http://es.slideshare.net/cfengine/upgrading-from-cfengine-2-to-cfengine-3">presentation</a>.</div>
 
 ]]></content>
   </entry>
