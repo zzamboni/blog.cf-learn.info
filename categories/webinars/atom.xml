@@ -4,7 +4,7 @@
   <title><![CDATA[Category: webinars | Blog]]></title>
   <link href="http://zzamboni.org/blog.cf-learn.info/categories/webinars/atom.xml" rel="self"/>
   <link href="http://zzamboni.org/blog.cf-learn.info/"/>
-  <updated>2013-04-28T00:14:42-05:00</updated>
+  <updated>2013-07-05T14:25:36-05:00</updated>
   <id>http://zzamboni.org/blog.cf-learn.info/</id>
   <author>
     <name><![CDATA[Diego Zamboni]]></name>
@@ -30,7 +30,7 @@
 <p></p>
 
 
-<div>To help, there is the <a href="http://cfengine.com/manuals/cf3-upgrade.html">Upgrading from CFEngine 2 to 3</a> guide. It contains some general suggestions, different ways in which the conversion can be handled, and a "Translation Codebook" that helps in converting from CFEngine 2 constructs to their equivalents in CFEngine 3.</div>
+<div>To help, there is the <a href="https://cfengine.com/archive/manuals/cf3-upgrade">Upgrading from CFEngine 2 to 3</a> guide (<a href="https://cfengine.com/manuals_files/cf3-upgrade.pdf">PDF</a>). It contains some general suggestions, different ways in which the conversion can be handled, and a "Translation Codebook" that helps in converting from CFEngine 2 constructs to their equivalents in CFEngine 3.</div>
 
 
 <p></p>
