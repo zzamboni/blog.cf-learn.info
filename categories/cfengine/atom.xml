@@ -4,7 +4,7 @@
   <title><![CDATA[Category: cfengine | Blog]]></title>
   <link href="http://zzamboni.org/blog.cf-learn.info/categories/cfengine/atom.xml" rel="self"/>
   <link href="http://zzamboni.org/blog.cf-learn.info/"/>
-  <updated>2013-07-05T14:32:58-05:00</updated>
+  <updated>2013-08-08T02:07:38-05:00</updated>
   <id>http://zzamboni.org/blog.cf-learn.info/</id>
   <author>
     <name><![CDATA[Diego Zamboni]]></name>
@@ -12,6 +12,57 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[CFEngine documentation index updated]]></title>
+    <link href="http://zzamboni.org/blog.cf-learn.info/cfengine-documentation-index-updated/"/>
+    <updated>2013-08-08T01:37:00-05:00</updated>
+    <id>http://zzamboni.org/blog.cf-learn.info/cfengine-documentation-index-updated</id>
+    <content type="html"><![CDATA[<p>Recently, the
+<a href="https://cfengine.com/docs/3.5/index.html">CFEngine documentation site</a>
+was completely overhauled, resulting in an easier-to-navigate,
+easier-to-search experience (also easier to extend, since it's all
+hosted on GitHub now).</p>
+
+<p>I have just updated the
+<a href="http://blog.cf-learn.info/searching-cfengine-documentation/">CFEngine documentation index</a>
+hosted on this site to point to the new documentation. The interface
+is the same: you go to <code>http://cf-learn.info/ref/keyword</code>, replacing
+<code>keyword</code> with your search term. This will automatically redirect you
+to the appropriate section in the CFEngine documentation. If the term
+matches more than one section, you will be given a list of potential
+matches, and also a link to do a search for that term directly in the
+documentation site.</p>
+
+<p>Some examples:</p>
+
+<ul>
+<li><a href="http://cf-learn.info/ref/ifvarclass">http://cf-learn.info/ref/ifvarclass</a></li>
+<li><a href="http://cf-learn.info/ref/classes">http://cf-learn.info/ref/classes</a></li>
+<li><a href="http://cf-learn.info/ref/cf-sketch">http://cf-learn.info/ref/cf-sketch</a></li>
+</ul>
+
+
+<p>As part of the update, the index has been expanded to include
+everything in the documentation site (before it only indexed the main
+users' guide), so you can use it to find things not only in all the
+<a href="https://cfengine.com/docs/3.5/reference.html">reference documents</a>,
+but also in the <a href="https://cfengine.com/docs/3.5/manuals.html">manuals</a>
+and even in the
+<a href="https://cfengine.com/docs/3.5/examples.html">examples</a>.</p>
+
+<p>As I've said before, I think the real power of this index is in its
+use as a browser keyword search. The method for doing this varies from
+browser to browser. With Safari on OS X I use the
+<a href="http://www.macosxtips.co.uk/keysearch/">KeySearch extension</a>, so I
+can just type "cf ifvarclass" on the Safari address bar, and go
+directly to the documentation about <code>ifvarclass</code>.</p>
+
+<p>Happy searching! And of course, please
+<a href="http://cf-learn.info/contact.html">let me know</a> if you find anything
+missing or broken.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[CFEngine tip #003: The distinction between bodies and bundles]]></title>
@@ -313,70 +364,6 @@ bundle agent edit_sshd
 
 
 <div>Until next time!</div>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Searching CFEngine documentation]]></title>
-    <link href="http://zzamboni.org/blog.cf-learn.info/searching-cfengine-documentation"/>
-    <updated>2012-02-02T18:13:00-06:00</updated>
-    <id>http://zzamboni.org/blog.cf-learn.info/searching-cfengine-documentation</id>
-    <content type="html"><![CDATA[<div><span style="font-family: Georgia; font-size: medium;">The <a href="https://cfengine.com/manuals/cf3-reference.html">CFEngine Reference Manual</a> is extremely useful, and is the ultimate guide to everything about CFEngine. However, it is not always the easiest to find what you are looking for.</span></div>
-
-
-<p></p>
-
-
-<div><span style="font-family: Georgia; font-size: medium;">To help in this respect, I have created a cross-referenced index of all the section headings in the manual. You can search it using the second search box on the right of any page of this site. For example, try searching for "ifvarclass", and you will be redirected to the section of the manual that described that attribute. If your search term matches more than one section (for example, try searching for "root"), you will be shown a disambiguation page where you can select which one you want.</span></div>
-
-
-<p></p>
-
-
-<div><span style="font-family: Georgia; font-size: medium;">You can also search the index directly by going to http://cf-learn.info/ref/keyword, replacing "keyword" with your search term. Without a search term (<a href="http://cf-learn.info/ref/">http://cf-learn.info/ref/</a>), it will redirect you to the top of the manual. Here are a few examples to get you started:</span></div>
-
-
-<div><span style="font-family: Georgia; font-size: medium;"><span style=""> </span><a href="http://cf-learn.info/ref/ifvarclass">http://cf-learn.info/ref/ifvarclass</a></span></div>
-
-
-<div><span style="font-family: Georgia; font-size: medium;"><span style=""> </span><a href="http://cf-learn.info/ref/files">http://cf-learn.info/ref/files</a></span></div>
-
-
-<div><span style="font-family: Georgia; font-size: medium;"><span style=""> </span><a href="http://cf-learn.info/ref/ordering">http://cf-learn.info/ref/ordering</a></span></div>
-
-
-<p></p>
-
-
-<div><span style="font-family: Georgia; font-size: small;"><strong>In the electronic versions of the book, all CFEngine keywords in the text will be linked to this index, to provide you easy access to the reference documentation about that concept.</strong></span></div>
-
-
-<p></p>
-
-
-<div><span style="font-family: Georgia; font-size: medium;">But the real power, in my opinion, comes from using these links as browser "search keywords". Most modern browsers allow you to define search keywords or search engines. If you define a keyword whose search URL is as shown above (using whatever mechanism necessary to put the search term in the place of "keyword", then you will be able to easily search the CFEngine docs. For example, using <a href="http://hackemist.com/SafariOmnibar/">Safari Omnibar</a>, I have defined a new "search provider" as follows:</span></div>
-
-
-<p></p>
-
-
-<div><span style="font-family: Georgia; font-size: medium;"><div class="p_embed p_image_embed">
-<a href="http://zzamboni.org/blog.cf-learn.info/images/2012/02/02/searching-cfengine-documentation/37470468-PastedGraphic-2.png"><img alt="Pastedgraphic-2" height="199" src="http://zzamboni.org/blog.cf-learn.info/images/2012/02/02/searching-cfengine-documentation/37470468-PastedGraphic-2.png" width="500"></a>
-</div>
-</span></div>
-
-
-<p></p>
-
-
-<div><span style="font-family: Georgia; font-size: medium;">So now I can simply type "cf keyword" in my Safari URL bar and it will do a search for that keyword.</span></div>
-
-
-<p></p>
-
-
-<div><span style="font-family: Georgia; font-size: medium;">Enjoy!</span></div>
 
 ]]></content>
   </entry>

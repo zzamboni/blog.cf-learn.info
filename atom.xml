@@ -4,7 +4,7 @@
   <title><![CDATA[Blog]]></title>
   <link href="http://zzamboni.org/blog.cf-learn.info/atom.xml" rel="self"/>
   <link href="http://zzamboni.org/blog.cf-learn.info/"/>
-  <updated>2013-07-05T14:32:58-05:00</updated>
+  <updated>2013-08-08T02:07:38-05:00</updated>
   <id>http://zzamboni.org/blog.cf-learn.info/</id>
   <author>
     <name><![CDATA[Diego Zamboni]]></name>
@@ -12,6 +12,57 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[CFEngine documentation index updated]]></title>
+    <link href="http://zzamboni.org/blog.cf-learn.info/cfengine-documentation-index-updated/"/>
+    <updated>2013-08-08T01:37:00-05:00</updated>
+    <id>http://zzamboni.org/blog.cf-learn.info/cfengine-documentation-index-updated</id>
+    <content type="html"><![CDATA[<p>Recently, the
+<a href="https://cfengine.com/docs/3.5/index.html">CFEngine documentation site</a>
+was completely overhauled, resulting in an easier-to-navigate,
+easier-to-search experience (also easier to extend, since it&#8217;s all
+hosted on GitHub now).</p>
+
+<p>I have just updated the
+<a href="http://blog.cf-learn.info/searching-cfengine-documentation/">CFEngine documentation index</a>
+hosted on this site to point to the new documentation. The interface
+is the same: you go to <code>http://cf-learn.info/ref/keyword</code>, replacing
+<code>keyword</code> with your search term. This will automatically redirect you
+to the appropriate section in the CFEngine documentation. If the term
+matches more than one section, you will be given a list of potential
+matches, and also a link to do a search for that term directly in the
+documentation site.</p>
+
+<p>Some examples:</p>
+
+<ul>
+<li><a href="http://cf-learn.info/ref/ifvarclass">http://cf-learn.info/ref/ifvarclass</a></li>
+<li><a href="http://cf-learn.info/ref/classes">http://cf-learn.info/ref/classes</a></li>
+<li><a href="http://cf-learn.info/ref/cf-sketch">http://cf-learn.info/ref/cf-sketch</a></li>
+</ul>
+
+
+<p>As part of the update, the index has been expanded to include
+everything in the documentation site (before it only indexed the main
+users&#8217; guide), so you can use it to find things not only in all the
+<a href="https://cfengine.com/docs/3.5/reference.html">reference documents</a>,
+but also in the <a href="https://cfengine.com/docs/3.5/manuals.html">manuals</a>
+and even in the
+<a href="https://cfengine.com/docs/3.5/examples.html">examples</a>.</p>
+
+<p>As I&#8217;ve said before, I think the real power of this index is in its
+use as a browser keyword search. The method for doing this varies from
+browser to browser. With Safari on OS X I use the
+<a href="http://www.macosxtips.co.uk/keysearch/">KeySearch extension</a>, so I
+can just type &#8220;cf ifvarclass&#8221; on the Safari address bar, and go
+directly to the documentation about <code>ifvarclass</code>.</p>
+
+<p>Happy searching! And of course, please
+<a href="http://cf-learn.info/contact.html">let me know</a> if you find anything
+missing or broken.</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Blog moving]]></title>
@@ -570,15 +621,6 @@ bundle agent edit_sshd
     <id>http://zzamboni.org/blog.cf-learn.info/cfengine-community-event-march-8th-2012</id>
     <content type="html"><![CDATA[I am visiting the Bay Area this week, and we took the opportunity to organize a <a href="http://cfengine3paloalto.eventbrite.com/">CFEngine community event</a> on Thursday, March 8th, at 6:30 PM. Come by, meet the CFEngine team, hear about some of the exciting things we are working on, and give us your feedback for the future.<p></p>
 <div>Hope to see you there! If you plan to attend please don&#8217;t forget to <a href="http://cfengine3paloalto.eventbrite.com/">register</a>.</div>
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[Book status: production]]></title>
-    <link href="http://zzamboni.org/blog.cf-learn.info/book-status-production"/>
-    <updated>2012-02-29T12:07:10-06:00</updated>
-    <id>http://zzamboni.org/blog.cf-learn.info/book-status-production</id>
-    <content type="html"><![CDATA[Some people have asked me what the status of the book is, so I thought I would post it here. The book is currently in the &#8220;production stage&#8221;, which means that the draft has been finalized content-wise, and is now being prepared for publication by O&#8217;Reilly. They have a specialized group of people for this, who work on preparing nice final versions of the figures, making sure the layout of the book is correct, and doing a few thorough proofreading and editing passes. <p></p> This means that it&#8217;s now really close to publication. I cannot make any promises about the specific date, but it should be before the end of March. <p></p> Thank you for your interest!
 ]]></content>
   </entry>
   
