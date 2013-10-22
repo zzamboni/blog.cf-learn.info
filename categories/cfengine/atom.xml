@@ -4,7 +4,7 @@
   <title><![CDATA[Category: cfengine | Blog]]></title>
   <link href="http://zzamboni.org/blog.cf-learn.info/categories/cfengine/atom.xml" rel="self"/>
   <link href="http://zzamboni.org/blog.cf-learn.info/"/>
-  <updated>2013-09-09T17:20:35-05:00</updated>
+  <updated>2013-10-21T19:14:22-05:00</updated>
   <id>http://zzamboni.org/blog.cf-learn.info/</id>
   <author>
     <name><![CDATA[Diego Zamboni]]></name>
@@ -12,6 +12,71 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Third release of 'Learning CFEngine 3' is out!]]></title>
+    <link href="http://zzamboni.org/blog.cf-learn.info/third-release-of-learning-cfengine-3-is-out/"/>
+    <updated>2013-10-21T14:44:00-05:00</updated>
+    <id>http://zzamboni.org/blog.cf-learn.info/third-release-of-learning-cfengine-3-is-out</id>
+    <content type="html"><![CDATA[<p>I am delighted to announce that, after many months of work, the Third
+Release of <a href="http://cf-learn.info/">Learning CFEngine 3</a> has been
+released! You can get it
+<a href="http://www.jdoqocy.com/click-7084911-11290546?sid=&amp;url=http%3A%2F%2Fshop.oreilly.com%2Fproduct%2F0636920022022.do%3Fcmp%3Daf-prog-books-video-product-cj_auwidget357_0636920022022_%25zp">directly from O'Reilly</a>
+(affiliate link) or from any other of the usual places. If you
+previously purchased the ebook version, you should see the update
+already in your "Your products" page at
+<a href="http://oreilly.com/">oreilly.com</a>, with options to download it or
+sync it to Dropbox, Google Drive or Kindle.</p>
+
+<p>There are many changes throughout, but here is a brief summary of the
+most important ones:</p>
+
+<ul>
+<li>The book has been thoroughly updated for CFEngine 3.5.2. This
+includes many new features, such as the new <code>edit_template</code>
+mechanism, improved <code>services:</code> promises, lots of new functions, and
+many others.</li>
+<li>The brand-new Chapter 5 provides an overview of the CFEngine Design
+Center. The Design Center had been mentioned in previous releases,
+but now is a mature and capable resource including powerful tools
+that allow you to use CFEngine in a completely new way, using
+entirely data-driven configuration. This chapter will get you
+started with the Design Center, and also provide pointers for you to
+explore on your own and even to contribute to it!</li>
+<li>Several new sections have been added, including "Dynamic Loading and
+Execution", "Using Vagrant with CFEngine", "Service Management Using
+CFEngine", and others.</li>
+<li>The brand-new Appendix C, contributed by
+<a href="http://verticalsysadmin.com">Aleksey Tsalolikhin</a>, contains a
+summary of all the attributes available for promises in agent
+bundles. Just browsing through this Appendix will give you an
+excellent overview of all the things you can do with CFEngine. In
+the electronic version of this book, each attribute links to its
+reference documentation in the CFEngine website, so you can look up
+the full details in seconds.</li>
+<li>Fixes to all known errata, typos, failures of clarity, and numerous
+other things.</li>
+</ul>
+
+
+<p>In addition, many of the examples have been updated or improved,
+additional emphasis has been placed on how to integrate your policies
+into a running CFEngine installation, and numerous other improvements
+have been made. All while maintaining the clarity, practicality and
+usefulness you have come to expect from this book. As usual, in the
+electronic versions, you will find that CFEngine keywords and concepts
+are links to the corresponding sections of the documentation.</p>
+
+<p><strong>I would like to thank YOU for reading the book, and for providing me
+with so many useful ideas, suggestions and corrections through the
+O'Reilly errata page, the CFEngine mailing list, IRC channel, and
+directly by email. Your feedback has made this new release possible
+and many times better. THANK YOU! (and please keep it coming)</strong></p>
+
+<p>I'm extremely happy to bring you this release, and I'm confident you
+will be happy with it as well. Please check it out!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[CFEngine documentation index updated]]></title>
@@ -275,95 +340,6 @@ bundle agent edit_sshd
 </ul>
 <p></p>
 </div>
-
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[CFEngine tip #001: Modularize complex policies using methods: calls]]></title>
-    <link href="http://zzamboni.org/blog.cf-learn.info/cfengine-tip-001-modularize-complex-policies"/>
-    <updated>2012-04-23T09:44:00-05:00</updated>
-    <id>http://zzamboni.org/blog.cf-learn.info/cfengine-tip-001-modularize-complex-policies</id>
-    <content type="html"><![CDATA[<div>Welcome to the new "CFEngine tip" series. In this series of posts I will explore different tips, tricks and techniques for making better use of CFEngine. For now I will post weekly, but the frequency may change as time goes by. If you have any suggestions for topics that I should cover in this series, please <a href="http://cf-learn.info/contact.html">let me know</a>!</div>
-
-
-<p></p>
-
-
-<div>For our first installment, we will talk about methods: promises, and how they can be used to make policies both clearer and more extensible.</div>
-
-
-<div>
-<hr>
-</div>
-
-
-<p>As your CFEngine policies grow in complexity, they become harder to read if all your promises are in a single bundle, or if you split them among bundles, to have all those bundles listed in the <a href="http://cf-learn.info/ref/bundlesequence">bundlesequence</a> declaration.</p>
-
-
-<div>Enter the <a href="http://cf-learn.info/ref/methods">methods:</a> promise type. Promises of this type allow you to call other bundles in sequence, passing arbitrary parameters. For example, consider the following example (from <a href="http://cf-learn.info/code/ch05/configfiles5.cf.html">Chapter 5</a> of "Learning CFEngine 3"):</div>
-
-
-<p><div><script src='https://gist.github.com/2471468.js?file=methods_ex1.cf'></script>
-<noscript><pre><code>bundle agent configfiles
-{
-  vars:  
-      # Files to edit
-      &quot;files[sysctlconf]&quot; string =&gt; &quot;/etc/sysctl.conf&quot;;
-      &quot;files[sshdconfig]&quot; string =&gt; &quot;/etc/ssh/sshd_config&quot;;
-      &quot;files[inittab]&quot;    string =&gt; &quot;/etc/inittab&quot;;
-      # ...
-
-  methods:
-      # Pass the name of the array, not the array itself.
-      &quot;backup&quot;  usebundle =&gt; backup_files(&quot;configfiles.files&quot;);
-      &quot;sysctl&quot;  usebundle =&gt; edit_sysctl;
-      &quot;sshd&quot;    usebundle =&gt; edit_sshd;
-      &quot;inittab&quot; usebundle =&gt; edit_inittab;
-      &quot;users&quot;   usebundle =&gt; manage_users(&quot;configfiles.users&quot;);
-}
-</code></pre></noscript></div>
-</p>
-
-
-<div>The methods: section makes it very easy to see the sequence of actions that will take place: backup some files, configure sysctl, sshd, inittab and users in sequence. This helps both in clarity and in code reusability: each bundle can perform logically different functionality, and they could potentially be reused in different settings and with different parameters. The promiser string in a methods: promise is an arbitrary string. The CFEngine documentation uses "any", but you can also use it, as in this example, to indicate the purpose of the promise.</div>
-
-
-<p></p>
-
-
-<div>Furthermore, you can use CFEngine's <a href="https://cfengine.com/manuals/cf3-reference#Loops-and-lists-in-CFEngine-3">implicit looping</a> to create generic promises that will call as many other bundles as necessary. Consider this <a href="http://cf-learn.info/code/ch05/configfiles7.cf.html">revised code</a>:</div>
-
-
-<p><div><script src='https://gist.github.com/2471468.js?file=methods_ex2.cf'></script>
-<noscript><pre><code>bundle agent configfiles
-{
-  vars:  
-      # Files to edit
-      &quot;files[sysctl]&quot;     string =&gt; &quot;/etc/sysctl.conf&quot;;
-      &quot;files[sshd]&quot;       string =&gt; &quot;/etc/ssh/sshd_config&quot;;
-      &quot;files[inittab]&quot;    string =&gt; &quot;/etc/inittab&quot;;
-      # ...
-
-      &quot;file_id&quot; slist =&gt; getindices(&quot;files&quot;);
-      &quot;bundle_names&quot; slist =&gt; maplist(&quot;edit_$(this)&quot;, &quot;file_id&quot;);
-
-  methods:
-      &quot;backup&quot;  usebundle =&gt; backup_files(&quot;configfiles.files&quot;);
-      &quot;$(bundle_names)&quot;  usebundle =&gt; $(bundle_names)(&quot;configfiles.files&quot;);
-      &quot;users&quot;   usebundle =&gt; manage_users(&quot;configfiles.users&quot;);
-}
-</code></pre></noscript></div>
-</p>
-
-
-<div>Now the list of bundles to call (edit_sysctl, edit_sshd and edit_inittab) is being built on the fly from the contents of the files array, and used through implicit looping to call the bundles in the methods: promises. Note how you can even pass arguments to these calls. This makes it very easy to extend the functionality by simply adding new elements to the files array (and of course, defining the appropriate edit_* bundle).</div>
-
-
-<p></p>
-
-
-<div>Until next time!</div>
 
 ]]></content>
   </entry>

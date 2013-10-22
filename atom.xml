@@ -4,7 +4,7 @@
   <title><![CDATA[Blog]]></title>
   <link href="http://zzamboni.org/blog.cf-learn.info/atom.xml" rel="self"/>
   <link href="http://zzamboni.org/blog.cf-learn.info/"/>
-  <updated>2013-09-09T17:20:35-05:00</updated>
+  <updated>2013-10-21T19:14:22-05:00</updated>
   <id>http://zzamboni.org/blog.cf-learn.info/</id>
   <author>
     <name><![CDATA[Diego Zamboni]]></name>
@@ -12,6 +12,71 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[Third release of 'Learning CFEngine 3' is out!]]></title>
+    <link href="http://zzamboni.org/blog.cf-learn.info/third-release-of-learning-cfengine-3-is-out/"/>
+    <updated>2013-10-21T14:44:00-05:00</updated>
+    <id>http://zzamboni.org/blog.cf-learn.info/third-release-of-learning-cfengine-3-is-out</id>
+    <content type="html"><![CDATA[<p>I am delighted to announce that, after many months of work, the Third
+Release of <a href="http://cf-learn.info/">Learning CFEngine 3</a> has been
+released! You can get it
+<a href="http://www.jdoqocy.com/click-7084911-11290546?sid=&amp;url=http%3A%2F%2Fshop.oreilly.com%2Fproduct%2F0636920022022.do%3Fcmp%3Daf-prog-books-video-product-cj_auwidget357_0636920022022_%25zp">directly from O&#8217;Reilly</a>
+(affiliate link) or from any other of the usual places. If you
+previously purchased the ebook version, you should see the update
+already in your &#8220;Your products&#8221; page at
+<a href="http://oreilly.com/">oreilly.com</a>, with options to download it or
+sync it to Dropbox, Google Drive or Kindle.</p>
+
+<p>There are many changes throughout, but here is a brief summary of the
+most important ones:</p>
+
+<ul>
+<li>The book has been thoroughly updated for CFEngine 3.5.2. This
+includes many new features, such as the new <code>edit_template</code>
+mechanism, improved <code>services:</code> promises, lots of new functions, and
+many others.</li>
+<li>The brand-new Chapter 5 provides an overview of the CFEngine Design
+Center. The Design Center had been mentioned in previous releases,
+but now is a mature and capable resource including powerful tools
+that allow you to use CFEngine in a completely new way, using
+entirely data-driven configuration. This chapter will get you
+started with the Design Center, and also provide pointers for you to
+explore on your own and even to contribute to it!</li>
+<li>Several new sections have been added, including &#8220;Dynamic Loading and
+Execution&#8221;, &#8220;Using Vagrant with CFEngine&#8221;, &#8220;Service Management Using
+CFEngine&#8221;, and others.</li>
+<li>The brand-new Appendix C, contributed by
+<a href="http://verticalsysadmin.com">Aleksey Tsalolikhin</a>, contains a
+summary of all the attributes available for promises in agent
+bundles. Just browsing through this Appendix will give you an
+excellent overview of all the things you can do with CFEngine. In
+the electronic version of this book, each attribute links to its
+reference documentation in the CFEngine website, so you can look up
+the full details in seconds.</li>
+<li>Fixes to all known errata, typos, failures of clarity, and numerous
+other things.</li>
+</ul>
+
+
+<p>In addition, many of the examples have been updated or improved,
+additional emphasis has been placed on how to integrate your policies
+into a running CFEngine installation, and numerous other improvements
+have been made. All while maintaining the clarity, practicality and
+usefulness you have come to expect from this book. As usual, in the
+electronic versions, you will find that CFEngine keywords and concepts
+are links to the corresponding sections of the documentation.</p>
+
+<p><strong>I would like to thank YOU for reading the book, and for providing me
+with so many useful ideas, suggestions and corrections through the
+O&#8217;Reilly errata page, the CFEngine mailing list, IRC channel, and
+directly by email. Your feedback has made this new release possible
+and many times better. THANK YOU! (and please keep it coming)</strong></p>
+
+<p>I&#8217;m extremely happy to bring you this release, and I&#8217;m confident you
+will be happy with it as well. Please check it out!</p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[CFEngine documentation index updated]]></title>
@@ -611,16 +676,6 @@ bundle agent edit_sshd
     <updated>2012-03-16T11:55:26-06:00</updated>
     <id>http://zzamboni.org/blog.cf-learn.info/book-status-print-ready</id>
     <content type="html"><![CDATA[I am very happy! I got the notification today that the final book draft has been produced and sent to the printer. This means that over the next few days the final version will be available for purchase, both as e-book and in print form. I will of course let you know when this happens. <p></p> For now, time to enjoy a relaxing weekend, the first with no book-related work in a long time :)
-]]></content>
-  </entry>
-  
-  <entry>
-    <title type="html"><![CDATA[CFEngine community event: March 8th, 2012]]></title>
-    <link href="http://zzamboni.org/blog.cf-learn.info/cfengine-community-event-march-8th-2012"/>
-    <updated>2012-03-05T10:43:25-06:00</updated>
-    <id>http://zzamboni.org/blog.cf-learn.info/cfengine-community-event-march-8th-2012</id>
-    <content type="html"><![CDATA[I am visiting the Bay Area this week, and we took the opportunity to organize a <a href="http://cfengine3paloalto.eventbrite.com/">CFEngine community event</a> on Thursday, March 8th, at 6:30 PM. Come by, meet the CFEngine team, hear about some of the exciting things we are working on, and give us your feedback for the future.<p></p>
-<div>Hope to see you there! If you plan to attend please don&#8217;t forget to <a href="http://cfengine3paloalto.eventbrite.com/">register</a>.</div>
 ]]></content>
   </entry>
   
